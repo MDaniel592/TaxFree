@@ -1,0 +1,47 @@
+.switch-wrap {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background: #15273b;
+    padding: 5px;
+    width: 44px;
+    height: 27px;
+    border-radius: 17px;
+}
+.switch-wrap input {
+    display: none;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.switch2 {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 0fr 1fr 1fr;
+    transition: 0.2s;
+}
+.switch2::after {
+    content: '';
+    border-radius: 50%;
+    background: #ccc;
+    grid-column: 2;
+    transition: background 0.2s;
+}
+input:checked + .switch2 {
+    grid-template-columns: 1fr 1fr 0fr;
+}
+input:checked + .switch2::after {
+    background-color: #52cf71;
+}
+
+.switch-wrap label {
+    position: absolute;
+    left: 55px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+label {
+    font-weight: normal;
+}

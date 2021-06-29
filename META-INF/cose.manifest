@@ -1,0 +1,452 @@
+Manifest-Version: 1.0
+
+Name: manifest.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: kxDT3jO0CuADgPpqqjoaeZJbazo=
+SHA256-Digest: y3fNI5dfvdO5MXT/fNjBNr7YnPupc21jeUiQVF5Zj0g=
+
+Name: background/background.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: GnTp6YqrBtqfmUSCjT/+3r7nL8w=
+SHA256-Digest: iFavY07wqoPuXfJPLn/N9k7ID1GwPWHpfmRJUOciHcU=
+
+Name: content_scripts/basket.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 0zyfoho6czvLCA06s7bDNxPSVso=
+SHA256-Digest: Fjg43z3lwYY5naEngH0kW/2ZDoivXwAAQRQEMplB84Q=
+
+Name: content_scripts/navigator.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: xYWzPLYxP08TnG3JR/g5Am9VLKI=
+SHA256-Digest: vWWnZjp+yr00vtHCH3RzZiBc74RUbFBwpU5aG4IqzW0=
+
+Name: content_scripts/taxfree.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: +OddXojrFH6hRCgBIsrZM1N5yqA=
+SHA256-Digest: i4Q4es2ojV/MA4VxT/Q4dxvHKZeb4wAqk5THWGX8Y1g=
+
+Name: core_js/popup.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 0lHOohkCL4AyB9LwNEhmo5iwttc=
+SHA256-Digest: GjGggUwyPk13s4Mi3chaP4mlfNVd9K0b4ztDc8fe08E=
+
+Name: core_js/storage.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: m2/DTfklxJC+b9ZzWuyVtoGKUuE=
+SHA256-Digest: vYYIeTLHXSa1hVJgrMiAf27lt8ujJRPQO04Eg2k1KRQ=
+
+Name: core_js/write_version.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 3MfIOEq2RljcKX/hZI9FlpTBzVo=
+SHA256-Digest: EDAC/EapCywHgEj4yIAKBshGnXmIrFlqZlx3zlcrREE=
+
+Name: css/bootstrap-colorpicker.min.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 8CaXeqtNAeNvEtbtnWeF0oLb5eo=
+SHA256-Digest: 17wSnqdRI9sWIxEZ1cMPunDErwMYQ4ZPzCkSaxjSSoE=
+
+Name: css/bootstrap.min.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: tpJhMkbHagTWrV8GKJp24fcukFs=
+SHA256-Digest: aSpgsV3oIdNKTl0+1qmKQIG7JK1FEVo0SIjyM9W4JZw=
+
+Name: css/core.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: +WIhF91lgBjjjHq85+K2OMuHbKw=
+SHA256-Digest: CrfrvGKCaWY0c2ke+Mfcn/y28cLu20TI/CJvSqE+GdM=
+
+Name: css/datatables.min.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: ElxXyMoGWog+jA1UfmlhhmJZPcg=
+SHA256-Digest: LUqzwrP52fHptP9JbU/2yXTOTABaQ9NgjGVNQRTstf4=
+
+Name: css/switchButtons.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: kMYc8uaBIqH/bNezJpVB8+1ruhs=
+SHA256-Digest: U3hcepTUuOZyGnKG1SJE19NWyR4TC3LIx+nhfdzIYqQ=
+
+Name: css/switchButtons2.css
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 9FHS4Qmk0yLbP4Y0T3wKP4jAL7U=
+SHA256-Digest: thw/rCKO6b8KdetoSkJljvidQRJe5HTzVNrawN24U+4=
+
+Name: external_js/bootstrap-colorpicker.min.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: YFEJs65SDhFzVzhftqZ3iORwbOE=
+SHA256-Digest: 19qa1MlD0p/BW6q3H2YKzDTA3XyrylkqYUlWWAqoAvc=
+
+Name: external_js/bootstrap.min.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: Z3j+088JWjGBQaMfRVyPRmOIW94=
+SHA256-Digest: CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=
+
+Name: external_js/datatables.min.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: NfONf3trPUIAYtw3q/qLDWoPV2c=
+SHA256-Digest: yKzAhPcEzkkYX/NYkiw08DVHnWNYhukLEn4RivtM+DM=
+
+Name: external_js/jquery-3.4.1.min.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: iFI5JDUbrAtdVg/gxXgeJVbnaT0=
+SHA256-Digest: CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=
+
+Name: external_js/popper.min.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: YvI45zNIx3656GVCan0bfeI8uy0=
+SHA256-Digest: x3YZWtRjM8bJqf48dFAv/qmgL68SI4jqNWeSLMZaMGA=
+
+Name: external_js/dataTables/i18n/af.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: F4IhHOarWSkKbmjHqS4Q3+xiEtE=
+SHA256-Digest: MOxrF0DHrnOSUV+nfbld/TmdcBtv2rIfzG4lTeLG1GM=
+
+Name: external_js/dataTables/i18n/am.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 07MXxqqbsgO4taoFdxNILSXbU90=
+SHA256-Digest: F8jcD3YLwLQZr9qptseF2LhhxKjSrlCyop3w+jN68tw=
+
+Name: external_js/dataTables/i18n/ar.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: B5PWt9OeK2GK9THyr+hE7dXvndk=
+SHA256-Digest: oXUphd5352nlNk6v6Sk5B8PwLdML/VQxRfBkAMHYHVA=
+
+Name: external_js/dataTables/i18n/be.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: YlMHz/4JoT3dg+ef6gHSMcD8Kdg=
+SHA256-Digest: s32jLuYrECTxnrpOlvIqTEkp2m6ettS2DSCNvP861pY=
+
+Name: external_js/dataTables/i18n/bg.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: GDJgby7E4qC9B3wyLcWbepKFCtI=
+SHA256-Digest: GsRRcb5Plg1qKcrXPV38z2h3VFxqzZlVdS2XfvH4yI8=
+
+Name: external_js/dataTables/i18n/ca.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: ZsH3gGJfG68cRE4oShGLF7aaaFU=
+SHA256-Digest: YVACPI3QlizCkUAIcyMnl+WSBdHwMm+fTTUl5mGn3dk=
+
+Name: external_js/dataTables/i18n/cs.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: B6amuwYAAV6y0S1ux7a7+wdMlPY=
+SHA256-Digest: dvFYshVHlugfebK4DMa6ezOdFBKthYwLeAw/ugWUeF0=
+
+Name: external_js/dataTables/i18n/cy.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: jhkOc7dRz+Z2Iu63WQnjoYNJWiQ=
+SHA256-Digest: 0hbbdJVUMa0AbuZTxyKireUkPpYDYcRa+CGNU/Pl7p0=
+
+Name: external_js/dataTables/i18n/da.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: rkCahV0PECZlqkWiA5Vwg50WGhs=
+SHA256-Digest: HSOw0pHNA0xBf4hjKUibKisQRuQQh40spbVlEhj9DIo=
+
+Name: external_js/dataTables/i18n/de.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: jCsDHUXIXIKYjqO64/ILKAlyMyc=
+SHA256-Digest: y9T0scWJ3Try68yznwKWBhwPTYxoQf60d1u+M7ljrk0=
+
+Name: external_js/dataTables/i18n/el.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: ONN8Ms0lDQOrIeoPbyGZHiKPXDY=
+SHA256-Digest: ws1nI8ibue/fdrXeq5qmAOOCfvBOmgf0shEhm/7sl88=
+
+Name: external_js/dataTables/i18n/en.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: zJX4B9NBS32NHPzLw7X1Qwp8fD8=
+SHA256-Digest: 6ZyGbuajGWoay4Qa/da7k072r7I/5+KMtwy88JQuTNs=
+
+Name: external_js/dataTables/i18n/es.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: QM03vVVFboRZbh/z1HyhXifwCu8=
+SHA256-Digest: nG90iN1kFTSUbWlnGXXwsaycRDARyCP2BU15ewp2akE=
+
+Name: external_js/dataTables/i18n/et.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: tlul3sqgJzMthy86wcdDZHyKRto=
+SHA256-Digest: EkfTyVCsME/41S42Qnc7YxNhUUGE/CnsmqngfF6Hdcs=
+
+Name: external_js/dataTables/i18n/eu.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: pBM3uOgrJmt/hxsFLLB4dwl1vKU=
+SHA256-Digest: 9JwOhGXaF2CGbFOU550TX25VtDSVnb9d32K575nFaFc=
+
+Name: external_js/dataTables/i18n/fa.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: ZIMB07FMKHKu9sfnIP0DWDKqAh8=
+SHA256-Digest: uLyKgdKXALTGMhdToTX0t0TDG3hjF2Z+kgSVRoA9uV8=
+
+Name: external_js/dataTables/i18n/fi.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: pZtLabOn0Le82dV7X7yxpLcj5O8=
+SHA256-Digest: mB8HIrk5XuI0MgJLAdirWDLmsQ+/yW4qiueflvoAENQ=
+
+Name: external_js/dataTables/i18n/fr.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: b5bbU0KBOGGNDMTuWZrdyQG0II4=
+SHA256-Digest: ldU5GE+VNLLJHlG+uEl1HNb9SVzmbcSrSrmulJuJAKk=
+
+Name: external_js/dataTables/i18n/gl.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: XXpKACCDrHTSBH0/uMfjsCoTjkY=
+SHA256-Digest: kdmNoVj5nicvNoX+pnMdIHn/pM13w4T1mU2vSTaGeTQ=
+
+Name: external_js/dataTables/i18n/gu.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: nGI+8FOthIlISxr+pKL1+3NhsPQ=
+SHA256-Digest: DkclfLM55S1apqxYTtralC9X4kdle7d8wJY28fpnnqE=
+
+Name: external_js/dataTables/i18n/he.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: jNZwfG3/uN6Anze3xfgOvpN1tp4=
+SHA256-Digest: Z4Q5CaKt3bjyXXTZJGKsNUDKv4Kq1QwW5kyr/JviBGY=
+
+Name: external_js/dataTables/i18n/hi.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: Uyk+OJzIGuFpag3TfYUMM4JDdew=
+SHA256-Digest: kvVixxdbLyy6ak3k2853Ua71vyyFg6yMmYZIN0rwwfQ=
+
+Name: external_js/dataTables/i18n/hr.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 7tjTv9tOB1zzxEVR+LJufxC+RS0=
+SHA256-Digest: 9f7Fii3R4AplKjwHiPmsEh68NHvntZgFxwlsCPa9TgA=
+
+Name: external_js/dataTables/i18n/hu.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: AQIZPY+6IK52+O75wGnZLJD/tGQ=
+SHA256-Digest: xnKri1AllYpTBS0WXwj6JJmzvHOWVsGfbSZdYSo9lw0=
+
+Name: external_js/dataTables/i18n/hy.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: PVeIHhBKKEQ1K8K6v1+yKBUDb04=
+SHA256-Digest: r+7U9ZQerbtC/qRLoUt9GEDenusPvzTdorNwSWjgsYE=
+
+Name: external_js/dataTables/i18n/id.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: Yoz04DYrHbTboV70a8dm6Gv0Ikw=
+SHA256-Digest: E57aEyGMhdQJkxF3vH8ghMckMncSXtxF7/hkffc/QxQ=
+
+Name: external_js/dataTables/i18n/is.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: D9AkogUPknAHcPGNZBqGh5YpnlU=
+SHA256-Digest: F4/UOJfvSUdBmQRuOu0j+ddc/fAVXKVxPD5LrYOK8Gg=
+
+Name: external_js/dataTables/i18n/it.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: lXhSv01/SeUVF7sSU6FUvS79IKM=
+SHA256-Digest: GqT9tUf50Z530WVr5RBFQVAF5lKvQbv+G3sqTCTBarU=
+
+Name: external_js/dataTables/i18n/ja.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: WqV+EZ0pC2PTT+bUPhZ5EDzoBLI=
+SHA256-Digest: GrnYL73Z7arf6zDCNHt+cLWsWyoGSaP6Wn+fqK14heA=
+
+Name: external_js/dataTables/i18n/ka.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: eIc2dVFuJYAf57ML+utt4MmTVhM=
+SHA256-Digest: Fn4AssHgLnxRi81lA3ZD8hWtMVYJx4Mo0GT1U5ykWfY=
+
+Name: external_js/dataTables/i18n/kk.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 1DZo0snSDzZvJPxlPlsSMk/O0kE=
+SHA256-Digest: Un4DPl/HGNRTq0p4PycUO2ACpy7WndwVB0Svy5QoHBQ=
+
+Name: external_js/dataTables/i18n/ko.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: S7m6owAvvuThIQ5UcJ4HSdhT+S8=
+SHA256-Digest: KeW88uFBrSxez65/DfOwole5QlnKFZk28hNbOc4p7hA=
+
+Name: external_js/dataTables/i18n/lt.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: BCDE7dMB58v8EsqbucDoLY9P7zM=
+SHA256-Digest: dEHdS9UbILF1ZXVZEJCi2GKLP6r6YKGedCNZ3WqNp54=
+
+Name: external_js/dataTables/i18n/lv.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: JMs/JFE3tgoGjnhGyQttrYvjZRE=
+SHA256-Digest: hOIOHC2yQ6HkYA3RKDX3b3WxWIlvi9wr9+YUE4GuZn4=
+
+Name: external_js/dataTables/i18n/mn.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: tFFmXI4/pseLcKfiUjUVhEHk/vY=
+SHA256-Digest: gr3nPuumQVFBew+GXmnZdOrrfOB9FVgwvKj2j55/W9k=
+
+Name: external_js/dataTables/i18n/ms.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: xQuiaWq95DZFpmradGamwn7RP4Y=
+SHA256-Digest: qvCXi49y0dt983L6KaAcg+C2CGtZ1aHsjqtbiUSQ2gI=
+
+Name: external_js/dataTables/i18n/nb.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: CLAXS081ZBZlOa8zs90d/KQjkiA=
+SHA256-Digest: 7YPwFnvELphMKBDAOAxP4S1dL9UT8wxT8jmwSyUsn9U=
+
+Name: external_js/dataTables/i18n/ne.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: Gv+sNsTcbmBQxSH38DZEwTApCB0=
+SHA256-Digest: oKEXTlzQ4qa6EV58W0p8Xhm5zVZUPDATBmR85N6d8is=
+
+Name: external_js/dataTables/i18n/nl.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: RedRfqoPlvx7KWMalas93ZLFGD0=
+SHA256-Digest: 5Is8nP5je/EoR4dmBM/QFhqzPWm5BNxTKvdA20WdffY=
+
+Name: external_js/dataTables/i18n/nn.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: O/TmMS1NrD+Pq09q4YpvpCouO4I=
+SHA256-Digest: yPO3YAQBrWu99Q4GE6rZ4DZjM9A905gq6Y+LSaauNro=
+
+Name: external_js/dataTables/i18n/pl.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: LLKuz4bBY7nQSCVf9Hb92KaG6NU=
+SHA256-Digest: w8DmEk0mJLTT9JweZvD68nMHWDWeY1xcZ5egtFhWW+E=
+
+Name: external_js/dataTables/i18n/pt.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: cOzOKezC7eM0T9odj3R/bJ3pGoU=
+SHA256-Digest: 5ZdNrSwP7HpHvgFgPpOJo3Z59kthRsjUEuaMLaM/mDs=
+
+Name: external_js/dataTables/i18n/README
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: NMGXjhhNVVA03azZg+lqU7i4bnU=
+SHA256-Digest: qVge5iD0GoLCl5q6zOP+VGxum0NevShv8qUX99sJFXk=
+
+Name: external_js/dataTables/i18n/ro.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 0pJIvB2zUhIT7ndmIT9iOAvigBY=
+SHA256-Digest: +89ncOAKHuGDHNp/Xl4MWiFll2lfSYKrGvDJm0yQrfI=
+
+Name: external_js/dataTables/i18n/ru.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: YywKNMBCYWjr07iZU/DRxeAVvfY=
+SHA256-Digest: uoEar2Y6H006YQ9wjycfvPVw95EBAwH8Izc93GP+Tdk=
+
+Name: external_js/dataTables/i18n/si.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: gW7m+cvBG06L91wabBgjfMr9upY=
+SHA256-Digest: ZnJQKvxmsp+Q8GSob4K0ivj0PRcNz4BGKyJc6uZ6U4E=
+
+Name: external_js/dataTables/i18n/sk.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: iKPu2r4UG2CZTXEtgm0cZIO6kbg=
+SHA256-Digest: cAxV/389mws4HSctMjn08GjvcdwcxWsJ8+lpo8rXJws=
+
+Name: external_js/dataTables/i18n/sl.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: CoG6lel9h7Wzy6N6kx7z3a9p++M=
+SHA256-Digest: hp4Ac7itn8TCGf2ojecIAAX2NEk9WnYiaKLG6LFNXEY=
+
+Name: external_js/dataTables/i18n/sq.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: e/SxWGl4eE5q5Tn36i+ibbtDFPM=
+SHA256-Digest: 9SMFW7anLPr6rVfh42J/BwI23qCiZHSo1gyPEd16T0Q=
+
+Name: external_js/dataTables/i18n/sr.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: jtW0kiG0l4HOrOxaQBxsMVXe+2E=
+SHA256-Digest: kfEDzdkoes8z9M05qyDR2UGpgtSyGOLvQQzQGeyoRqg=
+
+Name: external_js/dataTables/i18n/sv.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 6iX9RTnQx82j9e7hAw88BcBhOGM=
+SHA256-Digest: 8p0MFdi3bOMrGTjNvQ5vhC+8NB/HyBrVDj8eze+tiH8=
+
+Name: external_js/dataTables/i18n/sw.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: w0UMJq2jkT+HgVsGB5OQYDTMkCE=
+SHA256-Digest: 5QtsrJWsk7260YmZQzTgtOrF2mqF87vv+QlDfO5z080=
+
+Name: external_js/dataTables/i18n/ta.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: SdS18b2yuDJa170Fzdqj/vA7gS8=
+SHA256-Digest: fZDL43+0ZdLuMDsegq8/zY1XdHl+dXVM/A7kzjgD99g=
+
+Name: external_js/dataTables/i18n/te.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: U2noVUCv/oWHXtL5TEatvwheAds=
+SHA256-Digest: L5b3sVpJdvL/Cn34F9JAdk7chCNrHI8wDzY5cnIi8hI=
+
+Name: external_js/dataTables/i18n/th.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 1iCtOom40FBoHZy9sen2pZVkzzs=
+SHA256-Digest: jOtZFk2eScDH587Sz+RUYTV28WnhN7WnENZJzPNksrE=
+
+Name: external_js/dataTables/i18n/tr.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: B4vwNaq2EnenE35sJ3y+g66e3uE=
+SHA256-Digest: 3xCSjyCKtpI2d6iiLhJ64xJjr7JbCoVf4NZRwTVvsHI=
+
+Name: external_js/dataTables/i18n/uk.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: VbXbodooETaucDX0henBx/3bGzU=
+SHA256-Digest: A71ZbJSv6iD8jpXh7AK3ru0uTFuah89WkvND+70iTX4=
+
+Name: external_js/dataTables/i18n/ur.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: TD5fL3AOWzmZiZ/vGRWC6MFcK3k=
+SHA256-Digest: gQOCeSkZ6yVGvMBvklTPXJmd99sytBPrxZIc8BIqnII=
+
+Name: external_js/dataTables/i18n/uz.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: w8U739WTY3NAbLnp29e1XAKyY6s=
+SHA256-Digest: Mju3Vkn9YO3ZDU9JlhQ1Kpl30p5xrZwxVAOzOOgMJ3M=
+
+Name: external_js/dataTables/i18n/vi.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: LbgBAI0kFo1QFqi/ap0s9a07Xog=
+SHA256-Digest: cOSqXoTrATAiuvm5dguKkWOeN6aCoKH0yJKfW2GTl4I=
+
+Name: external_js/dataTables/i18n/zh.lang
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 6lr1jvQnObnaehsF/8m+s0uv7Bs=
+SHA256-Digest: tEl4cWwUHpmh7y/sU6nRYlSdG5fSJU98V2cufJS/V6M=
+
+Name: external_js/fontawesome/all.min.js
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: S626UDFZZ1Aj0cwRHuetW5Iw1zM=
+SHA256-Digest: 0vuk8LXoyrmCjp1f0O300qo1M75ZQyhH9X3J6d+scmk=
+
+Name: fonts/glyphicons-halflings-regular.ttf
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: RLwYUPVwlyJnsWmuGPHLBrYR/6I=
+SHA256-Digest: 45UEQJN1fYKvyxOJV9BqHqk2G9zwtELQahioBRr1dFY=
+
+Name: fonts/glyphicons-halflings-regular.woff
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: J45JqG5jTabyoC87R92dKo8mIQ8=
+SHA256-Digest: omOU9+3hAMoRjv8u2ghZYnWpg5uVnCJuFUOVV6WoB0I=
+
+Name: fonts/glyphicons-halflings-regular.woff2
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: yjW2l9mcrk0bYPLWD803dxmH6wc=
+SHA256-Digest: /hhdEaSWdokNR7t4MxKgzaWkTEA5IUCU55V7TAQO8Rw=
+
+Name: html/popup.html
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: wH6VGUJm62VipU2g2NfiiKmBvEo=
+SHA256-Digest: 3qHhb9/CAjAJUolLQ9xdiYCvQuAEGR7y3257DhplGu0=
+
+Name: img/ivafree-48.png
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: UsZkLs6TJbDp6NcxeF+ZKuvWGp4=
+SHA256-Digest: uCxBaY75+o24EBoSqjsFfOvYMGle9jbZXOIhBYAmly8=
+
+Name: img/ivafree-96.png
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 3y6y30+BCvoqyIkcCp3d5JFXGvc=
+SHA256-Digest: AVZ3OmZM0yMi/6wZFuIdYB0gOs1r+jPTon7dKSJ4k7Q=
+
+Name: img/ivafree.svg
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: wsEJPH54bUjBmD5syqtzLoX/iRc=
+SHA256-Digest: ciEEUK3FIY0b/tk8j+TXRGTLNJy8deBPzcmJ167uqoc=
+
+Name: _locales/en/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: 0/87rEBVi2jMPdhUc9kwcaYTURM=
+SHA256-Digest: CFeLGQr73SKGXnnMAZJ1kqC9rBi6PSmSyikwI8/et3s=
+
+Name: _locales/es/messages.json
+Digest-Algorithms: SHA1 SHA256
+SHA1-Digest: VFoWN5eRhvpTJToYxbtzYLwAAk8=
+SHA256-Digest: N213933FIL+S7tKT3+JuI6gJjnzUFg0nwZwEIjx1zBo=
+

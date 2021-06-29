@@ -1,0 +1,42 @@
+{
+    "popup_html_configs_head": {
+        "message": "Configuraciones",
+        "description": "This string is used as title for the configs on the popup page."
+    },
+	"popup_html_configs_head_title": {
+        "message": "Configuraciones",
+        "description": "This string is used as title for the configs on the popup page."
+    },
+    "popup_html_configs_switch_filter": {
+        "message": "TaxFree",
+        "description": "This string is used as name for the filter switch button on the popup page."
+    },
+    "popup_html_configs_switch_filter_title": {
+        "message": "Este interruptor activa la funcionalidad de TaxFree (añadir el precio sin impuestos). Si se deshabilita, el precio sin impuestos se dejará de mostrar.",
+        "description": "This string is used as title for the filter switch button on the popup page."
+    },
+    "core_save_on_disk": {
+        "message": "[TaxFree]: Guardar a disco.",
+        "description": "This string is used to tell the user, that TaxFree saved the settings on disk."
+    },
+    "core_save_on_disk_title": {
+        "message": "[TaxFree]: Save on disk.",
+        "description": "This string is used to tell the user, that TaxFree saved the settings on disk."
+    },
+    "configs_switch_statistics": {
+        "message": "ShortLinks",
+        "description": "This string is used as name for the ShortLinks switch button on the popup page."
+    },
+    "configs_switch_statistics_title": {
+        "message": "Habilita o deshabilita el filtrado completo de los enlaces",
+        "description": "This string is used as title for the ShortLinks switch button on the popup page."
+    },
+    "configs_switch_tag": {
+        "message": "SendHerePlz",
+        "description": "This string is used as name for the SendHerePlz switch button on the popup page."
+    },
+    "configs_switch_tag_title": {
+        "message": "Habilita or deshabilita la comprobación de la dispponibilidad de envío de Amazon",
+        "description": "This string is used as title for the statistics switch button on the popup page."
+    }
+}
