@@ -1,11 +1,11 @@
 var tab_url = undefined;
-var index0 	= undefined;
-var index1 	= undefined;
-var index2 	= undefined;
-var dp_pos 	= undefined;
+var index0 = undefined;
+var index1 = undefined;
+var index2 = undefined;
+var dp_pos = undefined;
 
-var amazon_productA  = "/dp/";
-var amazon_productB  = "/gp/";
+var amazon_productA = "/dp/";
+var amazon_productB = "/gp/";
 
 browser.runtime.onMessage.addListener(handleMessage);
 

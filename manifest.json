@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "TAXFree",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "author": "MDaniel",
   "description": "Discount the TAX/VAT applied to all products + Quick identification of Amazon products with shipping restrictions.",
   "homepage_url": "https://www.github.com",
@@ -13,8 +13,8 @@
   "browser_action": {
     "browser_style": true,
     "default_icon": {
-    "48": "img/ivafree-48.png",
-    "96": "img/ivafree-96.png"
+      "48": "img/ivafree-48.png",
+      "96": "img/ivafree-96.png"
     },
     "default_title": "TAXFree Add-on",
     "default_popup": "html/popup.html"
@@ -26,8 +26,11 @@
   ],
   "background": {
     "scripts": [
-      "browser-polyfill.js", "external_js/jquery-3.4.1.min.js",
-      "core_js/storage.js", "background/background.js"]
+      "browser-polyfill.js",
+      "external_js/jquery-3.4.1.min.js",
+      "core_js/storage.js",
+      "background/background.js"
+    ]
   },
   "content_scripts": [
     {
@@ -39,7 +42,10 @@
         "https://www.amazon.de/*",
         "https://www.amazon.it/*"
       ],
-      "js": ["browser-polyfill.js", "content_scripts/taxfree.js"],
+      "js": [
+        "browser-polyfill.js",
+        "content_scripts/taxfree.js"
+      ],
       "run_at": "document_start"
     },
     {
@@ -51,8 +57,14 @@
         "https://www.amazon.de/*",
         "https://www.amazon.it/*"
       ],
-      "css": ["css/loader.css", "css/products.css"],
-      "js": ["browser-polyfill.js", "content_scripts/content.js"],
+      "css": [
+        "css/loader.css",
+        "css/products.css"
+      ],
+      "js": [
+        "browser-polyfill.js",
+        "content_scripts/content.js"
+      ],
       "run_at": "document_start"
     }
   ]

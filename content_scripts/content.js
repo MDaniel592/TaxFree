@@ -2,14 +2,14 @@ var shortLink = false;
 var sendHerePlz = false;
 
 document.addEventListener('DOMContentLoaded', async () => {
-  chrome.storage.local.get(['ShortLinkStatus'], function(result) {
+  chrome.storage.local.get(['ShortLinkStatus'], function (result) {
     shortLink = result.ShortLinkStatus;
   });
 
-  chrome.storage.local.get(['sendHerePlzStatus'], function(result) {
+  chrome.storage.local.get(['sendHerePlzStatus'], function (result) {
     sendHerePlz = result.sendHerePlzStatus;
-    if ( (sendHerePlz == true) || (shortLink == true) ) {
-      init(sendHerePlz, shortLink);  
+    if ((sendHerePlz == true) || (shortLink == true)) {
+      init(sendHerePlz, shortLink);
     }
   });
 });
@@ -36,16 +36,16 @@ function checkProducts(productItems, sendHerePlz, shortLink) {
   productItems.forEach(productItem => {
     productItem.showLoader()
 
-    if (shortLink == true){
-      productItem.setProductUrl();   
+    if (shortLink == true) {
+      productItem.setProductUrl();
     }
 
-    let link  = productItem.getProductUrl();
-    var url   = document.querySelectorAll('div.nav-left')[0].baseURI;
-    var dx    = url.indexOf('amazon');
-    var dx2   = url.indexOf('/',dx);
+    let link = productItem.getProductUrl();
+    var url = document.querySelectorAll('div.nav-left')[0].baseURI;
+    var dx = url.indexOf('amazon');
+    var dx2 = url.indexOf('/', dx);
 
-    url  = url.slice(0,dx2);
+    url = url.slice(0, dx2);
     link = url + String(link);
 
     fetch(link)
@@ -65,7 +65,7 @@ function checkProducts(productItems, sendHerePlz, shortLink) {
         }
       })
       .finally(productItem.hideLoader)
-      //.catch(console.log("Wrong Link"))
+    //.catch(console.log("Wrong Link"))
   })
 }
 
@@ -80,7 +80,7 @@ function ProductItem(container) {
   const productImgLink = container.getElementsByClassName('a-link-normal s-no-outline')
   const productPriceLink = container.getElementsByClassName('a-size-base a-link-normal a-text-normal')
   const productReviewLink = container.getElementsByClassName('a-link-normal')
-  
+
 
   const loader = document.createElement('span')
   loader.classList.add('shp-loader')
@@ -106,13 +106,13 @@ function ProductItem(container) {
       var idx1 = enlace.indexOf("/");
       var idx2 = enlace.indexOf("/dp/");
 
-      if( (idx2-idx1) > 1){
-        enlace = enlace.slice(idx2,500)
+      if ((idx2 - idx1) > 1) {
+        enlace = enlace.slice(idx2, 500)
       }
 
-      var idx3 = enlace.indexOf("/",4);
+      var idx3 = enlace.indexOf("/", 4);
 
-      enlace = enlace.slice(0,idx3+1);
+      enlace = enlace.slice(0, idx3 + 1);
 
       productLink.setAttribute('href', enlace);
       productImgLink[0].setAttribute('href', enlace);     // IMG
@@ -124,16 +124,16 @@ function ProductItem(container) {
       var enlace2 = productOfferLink[pos].getAttribute('href');
 
       idx1 = enlace2.indexOf("listing/");
-      idx2 = enlace2.indexOf("/",idx1+10);
-      enlace2 = enlace2.slice(0,idx2+1);
+      idx2 = enlace2.indexOf("/", idx1 + 10);
+      enlace2 = enlace2.slice(0, idx2 + 1);
 
       // Bucle SET
       var i = 0;
 
-      while(i < productOfferLink.length){
-        productOfferLink[i].setAttribute('href', enlace); 
-        
-        if (i == pos){
+      while (i < productOfferLink.length) {
+        productOfferLink[i].setAttribute('href', enlace);
+
+        if (i == pos) {
           productOfferLink[i].setAttribute('href', enlace2);
         }
         i++;

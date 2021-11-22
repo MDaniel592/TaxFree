@@ -20,10 +20,10 @@ var PriceFreeTax;
 
 document.addEventListener('DOMContentLoaded', async () => {
   chrome.storage.local.get(['TaxFreeStatus'], function (result) {
-    language = document.getElementsByClassName('icp-nav-language')[0];
-    delivery = document.getElementById('ddmDeliveryMessage');
-    PriceIVA = document.getElementById('priceblock_ourprice');
-    url      = document.querySelectorAll('div.nav-left')[0].baseURI;
+    // language = document.getElementsByClassName('icp-nav-language')[0];
+    // delivery = document.getElementById('ddmDeliveryMessage');
+    // PriceIVA = document.getElementsByClassName('apexPriceToPay')[0];
+    url = document.querySelectorAll('div.nav-left')[0].baseURI;
 
     ivafree(result.TaxFreeStatus, url);
   });
@@ -35,7 +35,7 @@ function gotMessage(message, sender, sendResponse) {
 
   if (message.txt == "FREETAX") {
     value = message.value;
-    url   = message.url;
+    url = message.url;
     ivafree(value, url);
   }
 }
@@ -79,11 +79,11 @@ function getLocation(url) {
       amazonLocation = "IT";
       TaxPercent = 1.22;
       TextToDisplay = "Prezzo esentasse:";
-      break;      
+      break;
     case 'de':
       TaxPercent = 1.16;
 
-      language = document.getElementById('priceblock_ourprice_lbl').innerText;
+      language = document.getElementsByClassName('a-color-secondary a-size-base a-text-right a-nowrap')[0].innerText;
 
       if (language.indexOf('Price') != -1) {
         amazonLocation = "EN";
@@ -118,42 +118,39 @@ function getLocation(url) {
 }
 
 function calculatePrice(amazonLocation, TaxPercent) {
+  // console.log("Amazon location:", amazonLocation)
   var libra = 0;
   var region_eu = 0;
-  PriceIVA = document.getElementById('priceblock_ourprice');
+  PriceIVA = document.getElementsByClassName('apexPriceToPay');
 
-  if (PriceIVA != null) {
-    PriceIVA = PriceIVA.innerHTML;
+  if (PriceIVA) {
+    PriceIVA = PriceIVA[0].innerText;
   } else {
-    PriceIVA = document.getElementById('priceblock_dealprice');
-    if (PriceIVA != null) {
-      PriceIVA = PriceIVA.innerHTML;
-    } else {
-      PriceIVA = document.getElementById('priceblock_pospromoprice')
-      if (PriceIVA != null) {
-        PriceIVA = PriceIVA.innerHTML;
-      } else {
-        PriceIVA = 0;
-      }
-    }
+    // console.log("No se ha obtenido el precio. Reportalo al desarrollador!")
   }
 
   if (String(PriceIVA).indexOf('£') != -1) {
     PriceFreeTax = PriceIVA.split('£')[1];
     libra = 1;
 
-  } else if (PriceIVA.includes('&') != -1 && (amazonLocation == "ES" || amazonLocation == "DE" 
-  || amazonLocation == "FR" || amazonLocation == "PL" || amazonLocation == "CS" || amazonLocation == "IT") ) {
-    if ( (amazonLocation == "FR" || amazonLocation == "PL" || amazonLocation == "CS") && PriceIVA.indexOf('&') == 1 ){
-      PriceIVA = String(PriceIVA).replace('&nbsp;','');
+  } else if (amazonLocation == "ES" || amazonLocation == "DE"
+    || amazonLocation == "FR" || amazonLocation == "PL" || amazonLocation == "CS" || amazonLocation == "IT") {
+
+    if ((amazonLocation == "FR" || amazonLocation == "PL" || amazonLocation == "CS") && PriceIVA.indexOf('&') == 1) {
+      PriceIVA = String(PriceIVA).replace('&nbsp;', '');
       PriceFreeTax = PriceIVA.split('&')[0];
     } else {
-      PriceFreeTax = PriceIVA.split('&')[0];
+      PriceFreeTax = PriceIVA.split('\n')[0];
     }
 
-    if (PriceIVA.indexOf('€') == 0) {
-      PriceFreeTax = PriceIVA.split('€')[1];
-      region_eu = 1;
+    if (PriceIVA.indexOf('€') != -1) {
+      PriceFreeTax = PriceIVA.split('€')[0];
+      if (PriceFreeTax) {
+        region_eu = 2;
+      } else {
+        PriceFreeTax = PriceIVA.split('€')[1];
+        region_eu = 1;
+      }
     }
 
   } else if (amazonLocation == "NL") {
@@ -167,8 +164,10 @@ function calculatePrice(amazonLocation, TaxPercent) {
   PriceFreeTax = PriceFreeTax.replace(",", ".");
   PriceFreeTax = (' ' + PriceFreeTax).slice(1);
 
-  if (PriceFreeTax.length > 6 && (amazonLocation == "FR" || amazonLocation == "PL" || amazonLocation == "CS") ) {
-    
+  // console.log("Actual Price:", PriceFreeTax)
+
+  if (PriceFreeTax.length > 6 && (amazonLocation == "FR" || amazonLocation == "PL" || amazonLocation == "CS")) {
+
     PriceFreeTax = +((PriceFreeTax / TaxPercent).toFixed(2));
     PriceFreeTax = String(PriceFreeTax).replace(".", ",");
     if (PriceFreeTax.length > 6) {
@@ -181,11 +180,11 @@ function calculatePrice(amazonLocation, TaxPercent) {
     PriceFreeTax = +((PriceFreeTax / TaxPercent).toFixed(2));
     PriceFreeTax = (' ' + PriceFreeTax).slice(1);
 
-    if (amazonLocation != "EN"){
+    if (amazonLocation != "EN") {
       PriceFreeTax = PriceFreeTax.replace(".", ",");
       PriceFreeTax = (' ' + PriceFreeTax).slice(1);
     }
-    if (PriceFreeTax.length > 6 && amazonLocation == "EN"){
+    if (PriceFreeTax.length > 6 && amazonLocation == "EN") {
       PriceFreeTax = PriceFreeTax.slice(0, 1) + "," + PriceFreeTax.slice(1, PriceFreeTax.length);
     } else if (PriceFreeTax.length > 5) {
       PriceFreeTax = PriceFreeTax.slice(0, 1) + "." + PriceFreeTax.slice(1, PriceFreeTax.length);
@@ -203,7 +202,13 @@ function calculatePrice(amazonLocation, TaxPercent) {
   } else {
 
     PriceFreeTax = +((PriceFreeTax / TaxPercent).toFixed(2));
+
+    // console.log("Final First Price:", PriceFreeTax)
+
     PriceFreeTax = (' ' + PriceFreeTax).slice(1);
+
+    // console.log("Final Second Price:", PriceFreeTax)
+
     if (amazonLocation != "CO.UK" && amazonLocation != "EN") {
       PriceFreeTax = PriceFreeTax.replace(".", ",");
     }
@@ -226,15 +231,17 @@ function calculatePrice(amazonLocation, TaxPercent) {
     }
 
   } else {
-    PriceFreeTax = PriceFreeTax + " €";
+    PriceFreeTax = PriceFreeTax + "€";
   }
+
+  // console.log("Final Price:", PriceFreeTax)
 }
 
 function insertPrice(PriceFreeTax) {
-  var cuadro = document.getElementById('price');
-  var tbody  = cuadro.getElementsByTagName("tbody");
-  var index  = tbody[0].getElementsByTagName("tr").length;
-  var pos    = 2;
+  var cuadro = document.getElementById('corePrice_desktop');
+  var tbody = cuadro.getElementsByTagName("tbody");
+  var index = tbody[0].getElementsByTagName("tr").length;
+  var pos = 2;
 
   if (index < 2) {
     pos = index;
