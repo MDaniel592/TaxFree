@@ -186,7 +186,7 @@ function calculatePrice(amazonLocation, TaxPercent) {
     }
     if (PriceFreeTax.length > 6 && amazonLocation == "EN") {
       PriceFreeTax = PriceFreeTax.slice(0, 1) + "," + PriceFreeTax.slice(1, PriceFreeTax.length);
-    } else if (PriceFreeTax.length > 5) {
+    } else if (PriceFreeTax.length > 6) {
       PriceFreeTax = PriceFreeTax.slice(0, 1) + "." + PriceFreeTax.slice(1, PriceFreeTax.length);
     }
 
