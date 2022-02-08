@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "TAXFree",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "author": "MDaniel",
   "description": "Discount the TAX/VAT applied to all products + Quick identification of Amazon products with shipping restrictions.",
   "homepage_url": "https://www.github.com",
@@ -19,11 +19,7 @@
     "default_title": "TAXFree Add-on",
     "default_popup": "html/popup.html"
   },
-  "permissions": [
-    "storage",
-    "activeTab",
-    "tabs"
-  ],
+  "permissions": ["storage", "activeTab", "tabs"],
   "background": {
     "scripts": [
       "browser-polyfill.js",
@@ -42,10 +38,7 @@
         "https://www.amazon.de/*",
         "https://www.amazon.it/*"
       ],
-      "js": [
-        "browser-polyfill.js",
-        "content_scripts/taxfree.js"
-      ],
+      "js": ["browser-polyfill.js", "content_scripts/taxfree.js"],
       "run_at": "document_start"
     },
     {
@@ -57,14 +50,8 @@
         "https://www.amazon.de/*",
         "https://www.amazon.it/*"
       ],
-      "css": [
-        "css/loader.css",
-        "css/products.css"
-      ],
-      "js": [
-        "browser-polyfill.js",
-        "content_scripts/content.js"
-      ],
+      "css": ["css/loader.css", "css/products.css"],
+      "js": ["browser-polyfill.js", "content_scripts/content.js"],
       "run_at": "document_start"
     }
   ]
