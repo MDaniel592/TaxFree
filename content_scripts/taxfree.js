@@ -41,17 +41,15 @@ function gotMessage(message, sender, sendResponse) {
 
 function ivafree(value, url) {
   var status;
-  status = !document.getElementById("priceblock_myprice");
-
+  status = !document.getElementById("myCustomPriceBlock");
+  // console.log(status);
   if (
     value == true &&
     status == true &&
     (url.indexOf(amazon_productA) != -1 || url.indexOf(amazon_productB) != -1)
   ) {
     console.log("TaxFree - Loading Price");
-    var entrega = !document.querySelector(
-      `#ddmDeliveryMessage .a-color-error,#deliveryMessageMirId .a-color-error`
-    );
+    var entrega = !document.querySelector(`span.a-color-error`);
 
     if (entrega == true) {
       getLocation(url);
@@ -269,6 +267,7 @@ function insertPrice(PriceFreeTax) {
   );
 
   var container = document.createElement("div");
+  container.setAttribute("id", "myCustomPriceBlock");
   var textSpan = document.createElement("span");
   textSpan.setAttribute("data-a-size", "xl");
   var valueSpan = document.createElement("span");
