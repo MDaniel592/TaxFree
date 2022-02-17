@@ -50,10 +50,10 @@ function ivafree(value, url) {
   ) {
     console.log("TaxFree - Loading Price");
     var delivery = !document.querySelector(`span.a-color-error`);
-    var old_delivery = !document.querySelector(
+    var oldDelivery = !document.querySelector(
       `#ddmDeliveryMessage .a-color-error,#deliveryMessageMirId .a-color-error`
     );
-    if (delivery === true || old_delivery === true) {
+    if (delivery === true || oldDelivery === true) {
       getLocation(url);
 
       if (amazonLocation != "undefined") {
@@ -298,7 +298,7 @@ function insertPrice(PriceFreeTax) {
     }
 
     var newRow = tbody[0].insertRow(pos);
-    newRow.setAttribute("id", "priceblock_myprice");
+    newRow.setAttribute("id", "myCustomPriceBlock");
     var newCell = newRow.insertCell(0);
     var newText = document.createTextNode(TextToDisplay);
     newCell.setAttribute("id", "priceblock_myprice_lbl");
