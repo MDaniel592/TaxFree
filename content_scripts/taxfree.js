@@ -44,14 +44,16 @@ function ivafree(value, url) {
   status = !document.getElementById("myCustomPriceBlock");
   // console.log(status);
   if (
-    value == true &&
-    status == true &&
+    value === true &&
+    status === true &&
     (url.indexOf(amazon_productA) != -1 || url.indexOf(amazon_productB) != -1)
   ) {
     console.log("TaxFree - Loading Price");
-    var entrega = !document.querySelector(`span.a-color-error`);
-
-    if (entrega == true) {
+    var delivery = !document.querySelector(`span.a-color-error`);
+    var old_delivery = !document.querySelector(
+      `#ddmDeliveryMessage .a-color-error,#deliveryMessageMirId .a-color-error`
+    );
+    if (delivery === true || old_delivery === true) {
       getLocation(url);
 
       if (amazonLocation != "undefined") {
@@ -259,29 +261,86 @@ function calculatePrice(amazonLocation, TaxPercent) {
 }
 
 function insertPrice(PriceFreeTax) {
-  const cuadro = document.getElementById(
-    "corePriceDisplay_desktop_feature_div"
-  );
-  const bar = document.getElementsByClassName(
-    "a-section a-spacing-none aok-align-center"
-  );
+  var cuadro = document.getElementById("corePriceDisplay_desktop_feature_div");
 
-  var container = document.createElement("div");
-  container.setAttribute("id", "myCustomPriceBlock");
-  var textSpan = document.createElement("span");
-  textSpan.setAttribute("data-a-size", "xl");
-  var valueSpan = document.createElement("span");
-  valueSpan.setAttribute("data-a-size", "xl");
-  valueSpan.setAttribute("class", "a-price aok-align-center priceToPay");
+  if (cuadro != null) {
+    const bar = document.getElementsByClassName(
+      "a-section a-spacing-none aok-align-center"
+    );
 
-  var newText = document.createTextNode(TextToDisplay);
-  var newValue = document.createTextNode(" " + PriceFreeTax + " ");
+    var container = document.createElement("div");
+    container.setAttribute("id", "myCustomPriceBlock");
+    var textSpan = document.createElement("span");
+    textSpan.setAttribute("data-a-size", "xl");
+    var valueSpan = document.createElement("span");
+    valueSpan.setAttribute("data-a-size", "xl");
+    valueSpan.setAttribute("class", "a-price aok-align-center priceToPay");
 
-  textSpan.appendChild(newText);
-  valueSpan.appendChild(newValue);
+    var newText = document.createTextNode(TextToDisplay);
+    var newValue = document.createTextNode(" " + PriceFreeTax + " ");
 
-  container.appendChild(textSpan);
-  container.appendChild(valueSpan);
+    textSpan.appendChild(newText);
+    valueSpan.appendChild(newValue);
 
-  let aBlock = cuadro.insertBefore(container, cuadro.secondChild);
+    container.appendChild(textSpan);
+    container.appendChild(valueSpan);
+
+    let aBlock = cuadro.insertBefore(container, cuadro.secondChild);
+  } else {
+    cuadro = document.getElementById("corePrice_desktop");
+    var tbody = cuadro.getElementsByTagName("tbody");
+    var index = tbody[0].getElementsByTagName("tr").length;
+    var pos = 2;
+    if (index < 2) {
+      pos = index;
+    } else {
+      pos = 2;
+    }
+
+    var newRow = tbody[0].insertRow(pos);
+    newRow.setAttribute("id", "priceblock_myprice");
+    var newCell = newRow.insertCell(0);
+    var newText = document.createTextNode(TextToDisplay);
+    newCell.setAttribute("id", "priceblock_myprice_lbl");
+    newCell.setAttribute(
+      "class",
+      "a-color-secondary a-size-base a-text-right a-nowrap"
+    );
+    newCell.appendChild(newText);
+
+    var newCell = newRow.insertCell(1);
+    newCell.className = "a-span12";
+
+    var Span = document.createElement("span");
+    newCell.appendChild(Span);
+    Span.setAttribute("id", "priceblock_myprice");
+    Span.className = "a-size-medium a-color-price";
+
+    var newText = document.createTextNode(PriceFreeTax + " ");
+    Span.appendChild(newText);
+
+    var Span1 = document.createElement("span");
+    newCell.appendChild(Span1);
+    Span1.setAttribute("id", "ourprice_shippingmessage");
+
+    var Span2 = document.createElement("span");
+    Span1.appendChild(Span2);
+    Span2.setAttribute("id", "priceBadging_feature_div");
+    Span2.className = "feature";
+    Span2.setAttribute("data-feature-name", "priceBadging");
+
+    var Span3 = document.createElement("span");
+    Span2.appendChild(Span3);
+    Span3.setAttribute("id", "priceBadging_feature_div");
+    Span3.className = "feature";
+    Span3.setAttribute("data-feature-name", "priceBadging");
+
+    var Span4 = document.createElement("i");
+    Span3.appendChild(Span4);
+    Span4.className = "a-icon-wrapper a-icon-premium-with-text";
+
+    var Span5 = document.createElement("i");
+    Span4.appendChild(Span5);
+    Span5.className = "a-icon a-icon-premium";
+  }
 }

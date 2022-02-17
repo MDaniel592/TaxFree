@@ -67,9 +67,6 @@ function ProductItem(container) {
   const productTitle = container.querySelector("h2");
   const productTitleContainer = productTitle.closest(".a-section");
   const productLink = container.querySelector("h2 a");
-
-  // LINKS WHICH NEEDS TO BE MOFIED
-
   const productOfferLink = container.querySelectorAll("a.a-link-normal");
   const productImgLink = container.getElementsByClassName(
     "a-link-normal s-no-outline"
