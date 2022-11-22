@@ -3,9 +3,13 @@
         "message": "Configuraciones",
         "description": "This string is used as title for the configs on the popup page."
     },
-	"popup_html_configs_head_title": {
+    "popup_html_configs_head_title": {
         "message": "Configuraciones",
         "description": "This string is used as title for the configs on the popup page."
+    },
+    "popup_html_configs_percent": {
+        "message": "Porcentaje TAX",
+        "description": "This string is used as percent for the TaxFree switch button on the popup page."
     },
     "popup_html_configs_switch_filter": {
         "message": "TaxFree",

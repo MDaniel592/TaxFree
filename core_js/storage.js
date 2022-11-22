@@ -1,26 +1,15 @@
-/*
- * TaxFree
- * Copyright (c) 2017-2020 Kevin Röbert
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.function === "getData") sendResponse({ response: getData(request.params) });
+  if (request.function === "setData") sendResponse({ response: setData(request.params[0], request.params[1]) });
+  if (request.function === "saveOnExit") sendResponse({ response: saveOnExit() });
+  if (request.function === "genesis") sendResponse({ response: genesis() });
+});
 
 /*jshint esversion: 6 */
 /*
  * This script is responsible for the storage.
  */
-var storage = [];
+var storage = {};
 var hasPendingSaves = false;
 var pendingSaves = new Set();
 
@@ -155,24 +144,15 @@ function initStorage(items) {
  * Set default values for the settings.
  */
 function initSettings() {
-  storage.ClearURLsData = [];
   storage.TaxFreeStatus = true;
   storage.sendHerePlzStatus = true;
   storage.ShortLinkStatus = true;
+  storage.TaxFreePercent = 0;
 }
-
-/**
- * Load local saved data, if the browser is offline or
- * some other network trouble.
- */
-/* function loadOldDataFromStore() {
-    localDataHash = storage.dataHash;
-} */
 
 /*
 Tools
 */
-
 function handleError(error) {
   console.log("[TaxFree ERROR]:" + error);
 }
@@ -189,5 +169,5 @@ function getBrowser() {
   }
 }
 
-// Start storage and TaxFree
+// Initialize the storage variables
 genesis();

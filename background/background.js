@@ -1,70 +1,35 @@
-var tab_url = undefined;
-var index0 = undefined;
-var index1 = undefined;
-var index2 = undefined;
-var dp_pos = undefined;
+chrome.tabs.onUpdated.addListener(urlChanged);
 
-var amazon_productA = "/dp/";
-var amazon_productB = "/gp/";
+function clearURL(url) {
+  const idx1 = url.indexOf("amazon");
+  const idx2 = url.indexOf("/", idx1);
+  const amazon = url.slice(0, idx2);
 
-browser.runtime.onMessage.addListener(handleMessage);
-
-browser.tabs.onUpdated.addListener(urlChanged);
-
-/**
- * [handleMessage description]
- * @param  request      The message itself. This is a JSON-ifiable object.
- * @param  sender       A runtime.MessageSender object representing the sender of the message.
- * @param  sendResponse A function to call, at most once, to send a response to the message. The function takes a single argument, which may be any JSON-ifiable object. This argument is passed back to the message sender.
- */
-function handleMessage(request, sender, sendResponse) {
-	let fn = window[request.function];
-
-	if (typeof fn === "function") {
-		let response = fn.apply(null, request.params);
-
-		return Promise.resolve({ response });
-	}
+  const regex = /\/dp\/\S+|\/gp\/\S+/g;
+  let newURL = url.match(regex);
+  if (newURL === null) return "";
+  newURL = amazon + newURL[0].split("?")[0];
+  return newURL;
 }
 
+var savedURL = "";
 function urlChanged(tabId, changeInfo, tab) {
+  let newTabURL = "";
+  newTabURL = changeInfo.url ? changeInfo.url : newTabURL;
+  if (newTabURL.indexOf("www.amazon.") == -1 || !changeInfo) return;
 
-	if (changeInfo) {
+  // One time execution
+  if (savedURL === "") {
+    savedURL = clearURL(tab.url);
+    if (savedURL === "") return;
+  }
 
-		if ((tab.url).indexOf("www.amazon.") != -1) {
+  newTabURL = clearURL(newTabURL);
+  if (newTabURL === "") return;
+  if (savedURL === newTabURL) return;
 
-			dp_pos = (tab.url).indexOf("dp/");
-			if (dp_pos == -1) {
-				dp_pos = (tab.url).indexOf("gp/");
-			}
-			index0 = (tab.url).indexOf("/", dp_pos + 3);
-			index1 = (tab.url).indexOf("?", dp_pos);
-			index2 = (tab.url).indexOf("#", dp_pos);
+  savedURL = newTabURL;
 
-			if (index0 != "-1") {
-				tab.url = (tab.url).slice(0, index0);
-			}
-
-			if (index1 != "-1") {
-				tab.url = (tab.url).slice(0, index1);
-			}
-
-			if (index2 != "-1") {
-				tab.url = (tab.url).slice(0, index2);
-			}
-
-			if (tab.url != tab_url) {
-
-				tab_url = tab.url;
-				if ((tab_url).indexOf(amazon_productA) != -1 || (tab_url).indexOf(amazon_productB) != -1) {
-					let msg = {
-						txt: "FREETAX",
-						value: storage.TaxFreeStatus,
-						url: tab_url
-					}
-					chrome.tabs.sendMessage(tab.id, msg);
-				}
-			}
-		}
-	}
+  let msg = { txt: "FREETAX", value: storage.TaxFreeStatus, url: savedURL, valid: true };
+  chrome.tabs.sendMessage(tabId, msg);
 }

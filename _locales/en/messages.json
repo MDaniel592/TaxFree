@@ -7,6 +7,10 @@
         "message": "Configs",
         "description": "This string is used as title for the configs on the popup page."
     },
+    "popup_html_configs_percent": {
+        "message": "TAX Percent",
+        "description": "This string is used as percent for the TaxFree switch button on the popup page."
+    },
     "popup_html_configs_switch_filter": {
         "message": "TaxFree",
         "description": "This string is used as name for the filter switch button on the popup page."

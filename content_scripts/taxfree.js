@@ -1,346 +1,245 @@
-var value;
-var url;
-var delivery;
-var language = "EN";
-var amazon_productA = "/dp/";
-var amazon_productB = "/gp/";
+const CountryTaxes = {
+  DE: {
+    tax: 1.19,
+    taxName: "Precio sin IVA:",
+    taxNewName: "Precio con nuevo IVA:",
+    coin: "€",
+  },
+  "CO.UK": {
+    tax: 1.2,
+    taxName: "Price Tax Free:",
+    taxNewName: "Price with new VAT:",
+    coin: "£",
+  },
+  FR: {
+    tax: 1.2,
+    taxName: "Prix Tax Free:",
+    taxNewName: "Prix ​​avec nouvelle TVA:",
+    coin: "€",
+  },
+  DE: {
+    tax: 1.21,
+    taxName: "Preissteuerfrei:",
+    taxNewName: "Preis mit neuer MwSt:",
+    coin: "€",
+  },
+  ES: {
+    tax: 1.21,
+    taxName: "Precio sin IVA:",
+    taxNewName: "Precio con nuevo IVA:",
+    coin: "€",
+  },
+  IT: {
+    tax: 1.22,
+    taxName: "Prezzo con nuova IVA:",
+    taxNewName: "Prezzo esentasse:",
+    coin: "€",
+  },
+};
 
-// getLocation --> calculatePrice
-var amazonLocation;
-var TaxPercent = 1.21;
+var product = {
+  url: "undefined",
+  location: "undefined",
+  TaxPercent: "undefined",
+  TextFreeTax: "undefined",
+  PriceFreeTax: "undefined",
+  TextNewTax: "undefined",
+  PriceNewTax: "undefined",
+};
 
-// getLocation --> insertPrice
-var TextToDisplay;
-
-// calculatePrice
-var PriceIVA;
-
-// calculatePrice --> insertPrice
-var PriceFreeTax;
+var selectedTAX = 1;
 
 document.addEventListener("DOMContentLoaded", async () => {
-  chrome.storage.local.get(["TaxFreeStatus"], function (result) {
-    // language = document.getElementsByClassName('icp-nav-language')[0];
-    // delivery = document.getElementById('ddmDeliveryMessage');
-    // PriceIVA = document.getElementsByClassName('apexPriceToPay')[0];
-    url = document.querySelectorAll("div.nav-left")[0].baseURI;
+  chrome.storage.local.get("TaxFreePercent", function (result) {
+    selectedTAX = result.TaxFreePercent ? (1 + result.TaxFreePercent / 100).toFixed(2) : 1;
+  });
 
-    ivafree(result.TaxFreeStatus, url);
+  chrome.storage.local.get("TaxFreeStatus", function (result) {
+    let url = document.querySelectorAll("div.nav-left")[0].baseURI;
+    let active = result.TaxFreeStatus ? result.TaxFreeStatus : true;
+    ivafree(active, url);
   });
 });
-
 browser.runtime.onMessage.addListener(gotMessage);
 
 function gotMessage(message, sender, sendResponse) {
-  if (message.txt == "FREETAX") {
-    value = message.value;
-    url = message.url;
-    ivafree(value, url);
+  if (message.txt == "FREETAX") ivafree(message.value, message.url);
+}
+
+function ivafree(activeFreeTax, url) {
+  product.url = url;
+  let status = !document.getElementById("myCustomPriceBlock");
+
+  if (url.indexOf("/dp/") == -1 && url.indexOf("/gp/") == -1) return;
+  if (activeFreeTax === false || status === false) return;
+
+  console.log("TaxFree - Loading Price");
+
+  let delivery = !document.querySelector(`span.a-color-error`);
+  let oldDelivery = !document.querySelector(`#ddmDeliveryMessage .a-color-error,#deliveryMessageMirId .a-color-error`);
+
+  if (delivery === true || oldDelivery === true) {
+    setDataFromURL();
+
+    if (product.location === "undefined") return;
+    calculatePrice();
+    insertPrice();
   }
 }
 
-function ivafree(value, url) {
-  var status;
-  status = !document.getElementById("myCustomPriceBlock");
-  // console.log(status);
-  if (
-    value === true &&
-    status === true &&
-    (url.indexOf(amazon_productA) != -1 || url.indexOf(amazon_productB) != -1)
-  ) {
-    console.log("TaxFree - Loading Price");
-    var delivery = !document.querySelector(`span.a-color-error`);
-    var oldDelivery = !document.querySelector(
-      `#ddmDeliveryMessage .a-color-error,#deliveryMessageMirId .a-color-error`
-    );
-    if (delivery === true || oldDelivery === true) {
-      getLocation(url);
+function setDataFromURL() {
+  let idx1 = product.url.indexOf("amazon");
+  let idx2 = product.url.indexOf("/", idx1);
+  const country = product.url.slice(idx1 + 7, idx2).toUpperCase();
 
-      if (amazonLocation != "undefined") {
-        calculatePrice(amazonLocation, TaxPercent);
-        insertPrice(PriceFreeTax);
-      }
-    }
-  }
-}
+  if (country === "ES" || country === "FR" || country === "IT" || country === "CO.UK") {
+    product.location = country;
+    product.TaxPercent = CountryTaxes[country].tax;
+    product.TextFreeTax = CountryTaxes[country].taxName;
+    product.TextNewTax = CountryTaxes[country].taxNewName;
+  } else if (country == "DE") {
+    product.TaxPercent = CountryTaxes[country].tax;
 
-function getLocation(url) {
-  var idx1 = url.indexOf("amazon");
-  var idx2 = url.indexOf("/", idx1);
-  url = url.slice(idx1 + 7, idx2);
+    let language = document.getElementsByClassName("a-color-secondary a-size-base a-text-right a-nowrap")[0].innerText;
 
-  switch (url) {
-    case "es":
-      amazonLocation = "ES";
-      TaxPercent = 1.21;
-      TextToDisplay = "Precio sin IVA:";
-      break;
-    case "fr":
-      amazonLocation = "FR";
-      TaxPercent = 1.2;
-      TextToDisplay = "Prix Tax Free:";
-      break;
-    case "it":
-      amazonLocation = "IT";
-      TaxPercent = 1.22;
-      TextToDisplay = "Prezzo esentasse:";
-      break;
-    case "de":
-      TaxPercent = 1.16;
-
-      language = document.getElementsByClassName(
-        "a-color-secondary a-size-base a-text-right a-nowrap"
-      )[0].innerText;
-
-      if (language.indexOf("Price") != -1) {
-        amazonLocation = "EN";
-        TextToDisplay = "Price Tax Free:";
-      } else if (language.indexOf("prijs") != -1) {
-        amazonLocation = "NL";
-        TextToDisplay = "Prijs belastingvrij:";
-      } else if (language.indexOf("Fiyatımız") != -1) {
-        amazonLocation = "TR";
-        TextToDisplay = "Prijs Fiyat Vergisiz:";
-      } else if (language.indexOf("Nasza cena") != -1) {
-        amazonLocation = "PL";
-        TextToDisplay = "Cena bez podatku:";
-      } else if (language.indexOf("Naše cena") != -1) {
-        amazonLocation = "CS";
-        TextToDisplay = "Cena bez daně:";
-      } else {
-        amazonLocation = "DE";
-        TextToDisplay = "Preissteuerfrei:";
-      }
-      break;
-    case "co.uk":
-      amazonLocation = "CO.UK";
-      TaxPercent = 1.2;
-      TextToDisplay = "Price Tax Free:";
-      break;
-    default:
-      amazonLocation = "undefined";
-      TextToDisplay = "undefined";
-      break;
-  }
-}
-
-function calculatePrice(amazonLocation, TaxPercent) {
-  // console.log("Amazon location:", amazonLocation)
-  var libra = 0;
-  var region_eu = 0;
-  PriceIVA = document.querySelector("span.a-offscreen");
-
-  if (PriceIVA) {
-    PriceIVA = PriceIVA.innerText;
-  } else {
-    // console.log("No se ha obtenido el precio. Reportalo al desarrollador!")
-  }
-
-  // console.log(PriceIVA);
-
-  if (String(PriceIVA).indexOf("£") != -1) {
-    PriceFreeTax = PriceIVA.split("£")[1];
-    libra = 1;
-  } else if (
-    amazonLocation == "ES" ||
-    amazonLocation == "DE" ||
-    amazonLocation == "FR" ||
-    amazonLocation == "PL" ||
-    amazonLocation == "CS" ||
-    amazonLocation == "IT"
-  ) {
-    if (
-      (amazonLocation == "FR" ||
-        amazonLocation == "PL" ||
-        amazonLocation == "CS") &&
-      PriceIVA.indexOf("&") == 1
-    ) {
-      PriceIVA = String(PriceIVA).replace("&nbsp;", "");
-      PriceFreeTax = PriceIVA.split("&")[0];
+    if (language.indexOf("Price") != -1) {
+      product.location = "EN";
+      product.TextFreeTax = CountryTaxes["CO.UK"].taxName;
+      product.TextNewTax = CountryTaxes["CO.UK"].taxNewName;
     } else {
-      PriceFreeTax = PriceIVA.split("\n")[0];
-    }
-
-    if (PriceIVA.indexOf("€") != -1) {
-      PriceFreeTax = PriceIVA.split("€")[0];
-      if (PriceFreeTax) {
-        region_eu = 2;
-      } else {
-        PriceFreeTax = PriceIVA.split("€")[1];
-        region_eu = 1;
-      }
-    }
-  } else if (amazonLocation == "NL") {
-    PriceFreeTax = PriceIVA.split(";")[1];
-    region_eu = 1;
-  } else {
-    PriceFreeTax = PriceIVA.split("€")[1];
-    region_eu = 1;
-  }
-
-  PriceFreeTax = PriceFreeTax.replace(",", ".");
-  PriceFreeTax = (" " + PriceFreeTax).slice(1);
-
-  // console.log("Actual Price:", PriceFreeTax);
-
-  if (
-    PriceFreeTax.length > 6 &&
-    (amazonLocation == "FR" || amazonLocation == "PL" || amazonLocation == "CS")
-  ) {
-    PriceFreeTax = +(PriceFreeTax / TaxPercent).toFixed(2);
-    PriceFreeTax = String(PriceFreeTax).replace(".", ",");
-    if (PriceFreeTax.length > 6) {
-      PriceFreeTax =
-        PriceFreeTax.slice(0, 1) +
-        " " +
-        PriceFreeTax.slice(1, PriceFreeTax.length);
-    }
-  } else if (PriceFreeTax.length > 7 && libra != 1) {
-    PriceFreeTax = PriceFreeTax.replace(".", "");
-    PriceFreeTax = +(PriceFreeTax / TaxPercent).toFixed(2);
-    PriceFreeTax = (" " + PriceFreeTax).slice(1);
-
-    if (amazonLocation != "EN") {
-      PriceFreeTax = PriceFreeTax.replace(".", ",");
-      PriceFreeTax = (" " + PriceFreeTax).slice(1);
-    }
-    if (PriceFreeTax.length > 6 && amazonLocation == "EN") {
-      PriceFreeTax =
-        PriceFreeTax.slice(0, 1) +
-        "," +
-        PriceFreeTax.slice(1, PriceFreeTax.length);
-    } else if (PriceFreeTax.length > 6) {
-      PriceFreeTax =
-        PriceFreeTax.slice(0, 1) +
-        "." +
-        PriceFreeTax.slice(1, PriceFreeTax.length);
-    }
-  } else if (PriceFreeTax.length > 7 && libra == 1) {
-    PriceFreeTax = PriceFreeTax.replace(".", "");
-    PriceFreeTax = +(PriceFreeTax / TaxPercent).toFixed(2);
-    PriceFreeTax = (" " + PriceFreeTax).slice(1);
-    if (PriceFreeTax.length > 6) {
-      PriceFreeTax =
-        PriceFreeTax.slice(0, 1) +
-        "." +
-        PriceFreeTax.slice(1, PriceFreeTax.length);
+      product.location = country;
+      product.TextFreeTax = CountryTaxes[country].taxName;
+      product.TextNewTax = CountryTaxes[country].taxNewName;
     }
   } else {
-    PriceFreeTax = +(PriceFreeTax / TaxPercent).toFixed(2);
-
-    // console.log("Final First Price:", PriceFreeTax);
-
-    PriceFreeTax = (" " + PriceFreeTax).slice(1);
-
-    // console.log("Final Second Price:", PriceFreeTax);
-
-    if (amazonLocation != "CO.UK" && amazonLocation != "EN") {
-      PriceFreeTax = PriceFreeTax.replace(".", ",");
-    }
+    product.location = "undefined";
+    product.TaxPercent = "undefined";
+    product.TextNewTax = "undefined";
+    product.TextFreeTax = "undefined";
   }
-
-  if (amazonLocation != "CO.UK" && PriceFreeTax.split(",")[1] != undefined) {
-    if (PriceFreeTax.split(",")[1].length == 1) {
-      PriceFreeTax = PriceFreeTax + "0";
-    }
-  }
-
-  if (libra == 1) {
-    PriceFreeTax = "£" + PriceFreeTax;
-  } else if (region_eu == 1) {
-    if (amazonLocation == "NL") {
-      PriceFreeTax = "€ " + PriceFreeTax;
-    } else {
-      PriceFreeTax = "€" + PriceFreeTax;
-    }
-  } else {
-    PriceFreeTax = PriceFreeTax + "€";
-  }
-
-  // console.log("Final Price:", PriceFreeTax);
 }
 
-function insertPrice(PriceFreeTax) {
-  var cuadro = document.getElementById("corePriceDisplay_desktop_feature_div");
+function calculatePrice() {
+  let jsonPriceTax = document.querySelector("div.a-section.aok-hidden.twister-plus-buying-options-price-data");
+
+  if (!jsonPriceTax) console.log("No se ha obtenido el precio. Reportalo al desarrollador!");
+  if (!jsonPriceTax) return;
+
+  jsonPriceTax = JSON.parse(jsonPriceTax.innerText);
+  jsonPriceTax = jsonPriceTax[jsonPriceTax.length - 1];
+  let PriceIVA = jsonPriceTax.displayPrice ? jsonPriceTax.displayPrice : jsonPriceTax.priceAmount;
+
+  PriceIVA = PriceIVA.replace(",", ".");
+  PriceIVA = PriceIVA.match(/\d+\.\d+/g);
+  if (PriceIVA === null) console.log("No se ha obtenido el precio. Reportalo al desarrollador!");
+  if (PriceIVA === null) return;
+  PriceIVA = parseFloat(PriceIVA[0]);
+
+  let PriceFreeTax = String((PriceIVA / product.TaxPercent).toFixed(2));
+  let newPriceTAX = "";
+  if (selectedTAX !== 1) {
+    newPriceTAX = String((PriceFreeTax * selectedTAX).toFixed(2));
+  }
+
+  if (product.location === "CO.UK" || product.location === "DE") {
+    product.newPriceTAX = CountryTaxes[product.location].coin + newPriceTAX;
+    product.PriceFreeTax = CountryTaxes[product.location].coin + PriceFreeTax;
+  } else {
+    product.newPriceTAX = newPriceTAX + CountryTaxes[product.location].coin;
+    product.PriceFreeTax = PriceFreeTax + CountryTaxes[product.location].coin;
+  }
+}
+
+function createOneElement_A(price, name) {
+  let container = document.createElement("div");
+  container.setAttribute("id", Math.random());
+  let textSpan = document.createElement("span");
+  textSpan.setAttribute("data-a-size", "xl");
+  let valueSpan = document.createElement("span");
+  valueSpan.setAttribute("data-a-size", "xl");
+  valueSpan.setAttribute("class", "a-price aok-align-center priceToPay");
+
+  let newText = document.createTextNode(name);
+  let newValue = document.createTextNode(" " + price + " ");
+
+  textSpan.appendChild(newText);
+  valueSpan.appendChild(newValue);
+
+  container.appendChild(textSpan);
+  container.appendChild(valueSpan);
+  return container;
+}
+
+function createOneElement_B(tbody, pos, price, name) {
+  var newRow = tbody[0].insertRow(pos);
+  newRow.setAttribute("id", Math.random());
+  var newCell = newRow.insertCell(0);
+  var newText = document.createTextNode(name);
+  newCell.setAttribute("id", "priceblock_myprice_lbl");
+  newCell.setAttribute("class", "a-color-secondary a-size-base a-text-right a-nowrap");
+  newCell.appendChild(newText);
+
+  var newCell = newRow.insertCell(1);
+  newCell.className = "a-span12";
+
+  var Span = document.createElement("span");
+  newCell.appendChild(Span);
+  Span.setAttribute("id", Math.random());
+  Span.className = "a-size-medium a-color-price";
+
+  var newText = document.createTextNode(price + " ");
+  Span.appendChild(newText);
+
+  var Span1 = document.createElement("span");
+  newCell.appendChild(Span1);
+  Span1.setAttribute("id", "ourprice_shippingmessage");
+
+  var Span2 = document.createElement("span");
+  Span1.appendChild(Span2);
+  Span2.setAttribute("id", "priceBadging_feature_div");
+  Span2.className = "feature";
+  Span2.setAttribute("data-feature-name", "priceBadging");
+
+  var Span3 = document.createElement("span");
+  Span2.appendChild(Span3);
+  Span3.setAttribute("id", "priceBadging_feature_div");
+  Span3.className = "feature";
+  Span3.setAttribute("data-feature-name", "priceBadging");
+
+  var Span4 = document.createElement("i");
+  Span3.appendChild(Span4);
+  Span4.className = "a-icon-wrapper a-icon-premium-with-text";
+
+  var Span5 = document.createElement("i");
+  Span4.appendChild(Span5);
+  Span5.className = "a-icon a-icon-premium";
+  return;
+}
+
+function insertPrice() {
+  let cuadro = document.getElementById("corePriceDisplay_desktop_feature_div");
 
   if (cuadro != null) {
-    const bar = document.getElementsByClassName(
-      "a-section a-spacing-none aok-align-center"
-    );
-
-    var container = document.createElement("div");
-    container.setAttribute("id", "myCustomPriceBlock");
-    var textSpan = document.createElement("span");
-    textSpan.setAttribute("data-a-size", "xl");
-    var valueSpan = document.createElement("span");
-    valueSpan.setAttribute("data-a-size", "xl");
-    valueSpan.setAttribute("class", "a-price aok-align-center priceToPay");
-
-    var newText = document.createTextNode(TextToDisplay);
-    var newValue = document.createTextNode(" " + PriceFreeTax + " ");
-
-    textSpan.appendChild(newText);
-    valueSpan.appendChild(newValue);
-
-    container.appendChild(textSpan);
-    container.appendChild(valueSpan);
-
-    let aBlock = cuadro.insertBefore(container, cuadro.secondChild);
-  } else {
-    cuadro = document.getElementById("corePrice_desktop");
-    var tbody = cuadro.getElementsByTagName("tbody");
-    var index = tbody[0].getElementsByTagName("tr").length;
-    var pos = 2;
-    if (index < 2) {
-      pos = index;
-    } else {
-      pos = 2;
+    let container;
+    if (selectedTAX != 1) {
+      container = createOneElement_A(product.newPriceTAX, product.TextNewTax);
+      cuadro.appendChild(container);
     }
 
-    var newRow = tbody[0].insertRow(pos);
-    newRow.setAttribute("id", "myCustomPriceBlock");
-    var newCell = newRow.insertCell(0);
-    var newText = document.createTextNode(TextToDisplay);
-    newCell.setAttribute("id", "priceblock_myprice_lbl");
-    newCell.setAttribute(
-      "class",
-      "a-color-secondary a-size-base a-text-right a-nowrap"
-    );
-    newCell.appendChild(newText);
-
-    var newCell = newRow.insertCell(1);
-    newCell.className = "a-span12";
-
-    var Span = document.createElement("span");
-    newCell.appendChild(Span);
-    Span.setAttribute("id", "priceblock_myprice");
-    Span.className = "a-size-medium a-color-price";
-
-    var newText = document.createTextNode(PriceFreeTax + " ");
-    Span.appendChild(newText);
-
-    var Span1 = document.createElement("span");
-    newCell.appendChild(Span1);
-    Span1.setAttribute("id", "ourprice_shippingmessage");
-
-    var Span2 = document.createElement("span");
-    Span1.appendChild(Span2);
-    Span2.setAttribute("id", "priceBadging_feature_div");
-    Span2.className = "feature";
-    Span2.setAttribute("data-feature-name", "priceBadging");
-
-    var Span3 = document.createElement("span");
-    Span2.appendChild(Span3);
-    Span3.setAttribute("id", "priceBadging_feature_div");
-    Span3.className = "feature";
-    Span3.setAttribute("data-feature-name", "priceBadging");
-
-    var Span4 = document.createElement("i");
-    Span3.appendChild(Span4);
-    Span4.className = "a-icon-wrapper a-icon-premium-with-text";
-
-    var Span5 = document.createElement("i");
-    Span4.appendChild(Span5);
-    Span5.className = "a-icon a-icon-premium";
+    container = createOneElement_A(product.PriceFreeTax, product.TextFreeTax);
+    cuadro.appendChild(container);
+    return;
   }
+
+  cuadro = document.getElementById("corePrice_desktop");
+  let tbody = cuadro.getElementsByTagName("tbody");
+  let index = tbody[0].getElementsByTagName("tr").length;
+  let pos = 2;
+  if (index < 2) pos = index;
+
+  if (selectedTAX != 1) {
+    createOneElement_B(tbody, pos, product.newPriceTAX, product.TextNewTax);
+    pos += 1;
+  }
+  createOneElement_B(tbody, pos, product.PriceFreeTax, product.TextFreeTax);
 }
