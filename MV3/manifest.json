@@ -1,7 +1,7 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "TAXFree",
-  "version": "0.4.0",
+  "version": "0.4.0.1",
   "author": "MDaniel",
   "description": "Discount the TAX/VAT applied to all products + Quick identification of Amazon products with shipping restrictions.",
   "homepage_url": "https://github.com/MDaniel592/TaxFree",
@@ -10,7 +10,7 @@
     "48": "img/ivafree-48.png",
     "96": "img/ivafree-96.png"
   },
-  "browser_action": {
+  "action": {
     "browser_style": true,
     "default_icon": {
       "48": "img/ivafree-48.png",
@@ -24,13 +24,16 @@
     "activeTab",
     "tabs"
   ],
+  "host_permissions": [
+    "https://www.amazon.es/",
+    "https://www.amazon.co.uk/",
+    "https://www.amazon.fr/",
+    "https://www.amazon.de/",
+    "https://www.amazon.it/"
+  ],
   "background": {
-    "scripts": [
-      "external_js/browser-polyfill.js",
-      "external_js/jquery-3.6.1.min.js",
-      "core_js/storage.js",
-      "background/background.js"
-    ]
+    "service_worker": "background/background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
