@@ -1,0 +1,46 @@
+{
+    "popup_html_configs_head": {
+        "message": "Configs",
+        "description": "This string is used for the configs switch button on the popup page."
+    },
+    "popup_html_configs_head_title": {
+        "message": "Configs",
+        "description": "This string is used as title for the configs on the popup page."
+    },
+    "popup_html_configs_percent": {
+        "message": "TAX Percent",
+        "description": "This string is used as percent for the TaxFree switch button on the popup page."
+    },
+    "popup_html_configs_switch_filter": {
+        "message": "TaxFree",
+        "description": "This string is used as name for the filter switch button on the popup page."
+    },
+    "popup_html_configs_switch_filter_title": {
+        "message": "The filters switch activates the functionality of TaxFree (add the price without Taxes). If you disable this option, the whole addon is disabled",
+        "description": "This string is used as title for the filter switch button on the popup page."
+    },
+    "core_save_on_disk": {
+        "message": "[TaxFree]: Save on disk.",
+        "description": "This string is used to tell the user, that TaxFree saved the settings on disk."
+    },
+    "core_save_on_disk_title": {
+        "message": "[TaxFree]: Save on disk.",
+        "description": "This string is used to tell the user, that TaxFree saved the settings on disk."
+    },
+    "configs_switch_statistics": {
+        "message": "ShortLinks",
+        "description": "This string is used as name for the ShortLinks switch button on the popup page."
+    },
+    "configs_switch_statistics_title": {
+        "message": "Activate or deactivate the completed filtration of the links",
+        "description": "This string is used as title for the ShortLinks switch button on the popup page."
+    },
+    "configs_switch_tag": {
+        "message": "SendHerePlz",
+        "description": "This string is used as name for the SendHerePlz switch button on the popup page."
+    },
+    "configs_switch_tag_title": {
+        "message": "Activate or deactivate the check of the Amazon shipping availability",
+        "description": "This string is used as title for the SendHerePlz switch button on the popup page."
+    }
+}

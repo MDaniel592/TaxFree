@@ -7,12 +7,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (window.frameElement != undefined) return;
 
   chrome.storage.local.get("ShortLinkStatus", function (result) {
-    shortURL = result.ShortLinkStatus ? result.ShortLinkStatus : true;
+    shortURL = result.ShortLinkStatus;
     if (shortURL === true) console.log("TaxFree - shortURL is making its magic...");
   });
 
   chrome.storage.local.get("sendHerePlzStatus", function (result) {
-    sendHerePlz = result.sendHerePlzStatus ? result.sendHerePlzStatus : true;
+    sendHerePlz = result.sendHerePlzStatus;
     if (sendHerePlz === true) console.log("TaxFree - sendHerePlz is making its magic...");
     init();
   });
@@ -110,6 +110,8 @@ function ProductItem(container) {
       idx1 = url.indexOf("listing/");
       idx2 = url.indexOf("/", idx1 + 10);
       url = url.slice(0, idx2 + 1);
+
+      url = url.replace("/gp/offer-listing/", "/dp/");
 
       // Bucle SET
       let i = 0;

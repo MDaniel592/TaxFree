@@ -1,0 +1,87 @@
+<!--
+TaxFree
+Copyright (c) 2017-2020 Kevin Röbert
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TaxFree</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/switchButtons.css" />
+    <link rel="stylesheet" type="text/css" href="../css/core.css" />
+
+    <link rel="stylesheet" type="text/css" href="../css/switchButtons2.css" />
+  </head>
+  <body>
+    <div class="container-fluid" style="background: url('../img/img-noise-361x370.png'); background-size: auto; width: 200px">
+      <div class="row">
+        <nav class="col-sm-1 navbar-margin navbar navbar-dark bg-dark">
+          <div class="container-fluid justify-content-start">
+            <span class="float-left"><img src="../img/ivafree.svg" width="35" height="35" alt="" /></span>
+            <h2 style="color: #ff7800">
+              TaxFree
+              <span class="position-absolute badge badge-warning bg-dark small-version" id="version"></span>
+            </h2>
+          </div>
+        </nav>
+      </div>
+
+      <div class="row mb-3" id="config_section">
+        <h5><b id="configs_head"></b></h5>
+        <div class="container">
+          <label class="switch-wrap">
+            <input type="checkbox" id="TaxFreeButton" />
+            <span class="switch2"></span>
+            <label id="configs_switch_filter"></label>
+          </label>
+          <div class="container-fluid justify-content-end">
+            <label id="configs_percent"></label>
+            <input type="number" id="TaxFreePercent" min="0" max="100" style="width: 55px" />
+            %
+          </div>
+        </div>
+        <div class="container mt-2 mb-2">
+          <label class="switch-wrap">
+            <input type="checkbox" id="sendHerePlzButton" />
+            <span class="switch2"></span>
+            <label id="configs_switch_tag"></label>
+          </label>
+        </div>
+        <div class="container">
+          <label class="switch-wrap">
+            <input type="checkbox" id="ShortLinkButton" />
+            <span class="switch2"></span>
+            <label id="configs_switch_statistics"></label>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="application/javascript" src="../external_js/jquery-3.6.1.min.js"></script>
+    <script type="application/javascript" src="../external_js/bootstrap/bootstrap.min.js"></script>
+    <script type="application/javascript" src="../core_js/write_version.js"></script>
+    <script type="application/javascript" src="../core_js/storage.js"></script>
+    <script type="application/javascript" src="../core_js/popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+import "../core_js/storage.js";
+
+chrome.runtime.onInstalled.addListener(() => {
+  let initial_data = { TaxFreeStatus: true, sendHerePlzStatus: true, ShortLinkStatus: true, TaxFreePercent: 0 };
+  chrome.storage.local.set(initial_data).catch(handleError);
+});
+
+chrome.tabs.onUpdated.addListener(urlChanged);
+
+function handleError(error) {
+  console.log("[TaxFree ERROR]:" + error);
+}
+
+function clearURL(url) {
+  const idx1 = url.indexOf("amazon");
+  const idx2 = url.indexOf("/", idx1);
+  const amazon = url.slice(0, idx2);
+
+  const regex = /\/dp\/\S+|\/gp\/\S+/g;
+  let newURL = url.match(regex);
+  if (newURL === null) return "";
+  newURL = amazon + newURL[0].split("?")[0];
+  return newURL;
+}
+
+var savedURL = "";
+function urlChanged(tabId, changeInfo, tab) {
+  let newTabURL = "";
+  newTabURL = changeInfo.url ? changeInfo.url : newTabURL;
+  if (newTabURL.indexOf("www.amazon.") == -1 || !changeInfo) return;
+
+  // One time execution
+  if (savedURL === "") {
+    savedURL = clearURL(tab.url);
+    if (savedURL === "") return;
+  }
+
+  newTabURL = clearURL(newTabURL);
+  if (newTabURL === "") return;
+  if (savedURL === newTabURL) return;
+
+  savedURL = newTabURL;
+
+  chrome.storage.local.get("TaxFreeStatus", function (result) {
+    let active = result.TaxFreeStatus ? result.TaxFreeStatus : true;
+    let msg = { txt: "FREETAX", value: active, url: savedURL, valid: true };
+    chrome.tabs.sendMessage(tabId, msg);
+  });
+}
