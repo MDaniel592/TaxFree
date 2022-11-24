@@ -1,4 +1,4 @@
-# <sub><img src="https://raw.githubusercontent.com/MDaniel592/TaxFree/develop/MV3/img/taxfree_64x64.png" width="64px" height="64px"></sub> TaxFree 
+# <sub><img src="https://raw.githubusercontent.com/MDaniel592/TaxFree/main/MV3/img/taxfree_64x64.png" width="64px" height="64px"></sub> TaxFree 
 
 
 The extension removes TAXES from amazon sites (EU). Furthermore, you can introduce your desired/current tax of your current country to see the final price you will pay.
