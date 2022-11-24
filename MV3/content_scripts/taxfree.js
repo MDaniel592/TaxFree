@@ -56,16 +56,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   chrome.storage.local.get("TaxFreeStatus", function (result) {
     let url = document.querySelectorAll("div.nav-left")[0].baseURI;
-    ivafree(result.TaxFreeStatus, url);
+    taxfree(result.TaxFreeStatus, url);
   });
 });
 chrome.runtime.onMessage.addListener(gotMessage);
 
 function gotMessage(message, sender, sendResponse) {
-  if (message.txt == "FREETAX") ivafree(message.value, message.url);
+  if (message.txt == "FREETAX") taxfree(message.value, message.url);
 }
 
-function ivafree(activeFreeTax, url) {
+function taxfree(activeFreeTax, url) {
   product.url = url;
   let status = !document.getElementById("myCustomPriceBlock");
 
