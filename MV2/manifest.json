@@ -7,21 +7,26 @@
   "homepage_url": "https://github.com/MDaniel592/TaxFree",
   "default_locale": "en",
   "icons": {
-    "48": "img/ivafree-48.png",
-    "96": "img/ivafree-96.png"
+    "32": "img/taxfree_32x32.png",
+    "64": "img/taxfree_64x64.png",
+    "128": "img/taxfree_128x128.png",
+    "256": "img/taxfree_256x256.png",
+    "512": "img/taxfree_512x512.png"
   },
   "browser_action": {
     "browser_style": true,
     "default_icon": {
-      "48": "img/ivafree-48.png",
-      "96": "img/ivafree-96.png"
+      "32": "img/taxfree_32x32.png",
+      "64": "img/taxfree_64x64.png",
+      "128": "img/taxfree_128x128.png",
+      "256": "img/taxfree_256x256.png",
+      "512": "img/taxfree_512x512.png"
     },
     "default_title": "TAXFree Add-on",
     "default_popup": "html/popup.html"
   },
   "permissions": [
     "storage",
-    "activeTab",
     "tabs"
   ],
   "background": {
