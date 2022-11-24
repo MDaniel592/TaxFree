@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "TAXFree",
-  "version": "0.4.0.1",
+  "version": "0.4.0.2",
   "author": "MDaniel",
   "description": "Discount the TAX/VAT applied to all products + Quick identification of Amazon products with shipping restrictions.",
   "homepage_url": "https://github.com/MDaniel592/TaxFree",
@@ -28,13 +28,6 @@
   "permissions": [
     "storage",
     "tabs"
-  ],
-  "host_permissions": [
-    "https://www.amazon.es/",
-    "https://www.amazon.co.uk/",
-    "https://www.amazon.fr/",
-    "https://www.amazon.de/",
-    "https://www.amazon.it/"
   ],
   "background": {
     "service_worker": "background/background.js",
