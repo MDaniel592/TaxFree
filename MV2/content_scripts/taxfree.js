@@ -99,15 +99,17 @@ function setDataFromURL() {
     product.TextNewTax = CountryTaxes[country].taxNewName;
   } else if (country == "DE") {
     product.TaxPercent = CountryTaxes[country].tax;
+    product.location = country;
 
-    let language = document.getElementsByClassName("a-color-secondary a-size-base a-text-right a-nowrap")[0].innerText;
+    let language = document.getElementsByClassName("a-color-secondary a-size-base a-text-right a-nowrap");
+    if (language.length > 0) language = language[0].innerText;
+    if (language.length == 0) console.log("Language not identified, setting the default one");
+    if (language.length == 0) language = "Price";
 
     if (language.indexOf("Price") != -1) {
-      product.location = "EN";
       product.TextFreeTax = CountryTaxes["CO.UK"].taxName;
       product.TextNewTax = CountryTaxes["CO.UK"].taxNewName;
     } else {
-      product.location = country;
       product.TextFreeTax = CountryTaxes[country].taxName;
       product.TextNewTax = CountryTaxes[country].taxNewName;
     }
@@ -119,9 +121,24 @@ function setDataFromURL() {
   }
 }
 
+function allIndexesOf(string, substring) {
+  var a = [],
+    i = -1;
+  while ((i = string.indexOf(substring, i + 1)) >= 0) a.push(i);
+  return a;
+}
+
+function replaceN(string, times, substring, newsubstring) {
+  i = 0;
+  while (i < times) {
+    string = string.replace(substring, newsubstring);
+    i += 1;
+  }
+  return string;
+}
+
 function calculatePrice() {
   let jsonPriceTax = document.querySelector("div.a-section.aok-hidden.twister-plus-buying-options-price-data");
-
   if (!jsonPriceTax) console.log("No se ha obtenido el precio. Reportalo al desarrollador!");
   if (!jsonPriceTax) return;
 
@@ -129,11 +146,12 @@ function calculatePrice() {
   jsonPriceTax = jsonPriceTax[jsonPriceTax.length - 1];
   let PriceIVA = jsonPriceTax.displayPrice ? jsonPriceTax.displayPrice : jsonPriceTax.priceAmount;
 
-  PriceIVA = PriceIVA.replace(",", ".");
-  PriceIVA = PriceIVA.match(/\d+\.\d+/g);
+  PriceIVA = PriceIVA.replaceAll(",", ".").replace(/[^\d.-]/g, "");
+  dotsFound = allIndexesOf(PriceIVA, ".");
+  if (dotsFound.length > 1) PriceIVA = replaceN(PriceIVA, dotsFound.length - 1, ".", "");
+  PriceIVA = parseFloat(PriceIVA).toFixed(2);
   if (PriceIVA === null) console.log("No se ha obtenido el precio. Reportalo al desarrollador!");
   if (PriceIVA === null) return;
-  PriceIVA = parseFloat(PriceIVA[0]);
 
   let PriceFreeTax = String((PriceIVA / product.TaxPercent).toFixed(2));
   let newPriceTAX = "";
