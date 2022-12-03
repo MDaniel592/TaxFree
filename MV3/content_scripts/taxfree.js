@@ -137,13 +137,18 @@ function replaceN(string, times, substring, newsubstring) {
 }
 
 function calculatePrice() {
-  let jsonPriceTax = document.querySelector("div.a-section.aok-hidden.twister-plus-buying-options-price-data");
-  if (!jsonPriceTax) console.log("No se ha obtenido el precio. Reportalo al desarrollador!");
-  if (!jsonPriceTax) return;
+  let jsonData = document.querySelector("div.a-section.aok-hidden.twister-plus-buying-options-price-data");
+  if (!jsonData) console.log("No se ha obtenido el precio. Reportalo al desarrollador!");
+  if (!jsonData) return;
 
-  jsonPriceTax = JSON.parse(jsonPriceTax.innerText);
-  jsonPriceTax = jsonPriceTax[jsonPriceTax.length - 1];
-  let PriceIVA = jsonPriceTax.displayPrice ? jsonPriceTax.displayPrice : jsonPriceTax.priceAmount;
+  jsonData = JSON.parse(jsonData.innerText);
+  let PriceIVA = null;
+  for (let item in jsonData) {
+    PriceIVA = jsonData[item].displayPrice ? jsonData[item].displayPrice : jsonData[item].priceAmount;
+    if (jsonData[item].buyingOptionType === "NEW") break;
+  }
+  if (!jsonData) console.log("No se ha obtenido el precio. Reportalo al desarrollador!");
+  if (!jsonData) return;
 
   PriceIVA = PriceIVA.replaceAll(",", ".").replace(/[^\d.-]/g, "");
   dotsFound = allIndexesOf(PriceIVA, ".");
