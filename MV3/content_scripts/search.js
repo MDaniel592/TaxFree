@@ -65,12 +65,7 @@ function ProductItem(container) {
   const productTitle = container.querySelector("h2");
   const productTitleContainer = productTitle.closest(".a-section");
   const productURL = container.querySelector("h2 a");
-  const productOfferURL = container.querySelectorAll("a.a-link-normal");
-  const productImgURL = container.getElementsByClassName("a-link-normal s-no-outline");
-  const productPriceURL = container.getElementsByClassName("a-size-base a-link-normal a-text-normal");
-  const productReviewURL = container.getElementsByClassName("a-link-normal");
 
-  //
   const loader = document.createElement("span");
   loader.classList.add("shp-loader");
   loader.innerText = "Loading...";
@@ -88,38 +83,27 @@ function ProductItem(container) {
     },
 
     setProductURL: () => {
-      // First url
       let url = productURL.getAttribute("href");
-      let idx1 = url.indexOf("/");
-      let idx2 = url.indexOf("/dp/");
+      let idx1 = url.indexOf("/dp/");
+      let idx2 = url.indexOf("/", idx1 + 4);
 
-      if (idx2 - idx1 > 1) url = url.slice(idx2, 500);
-
-      let idx3 = url.indexOf("/", 4);
-      url = url.slice(0, idx3 + 1);
-
-      productURL.setAttribute("href", url);
-      productImgURL[0].setAttribute("href", url);
-      productPriceURL[0].setAttribute("href", url);
-      productReviewURL[2].setAttribute("href", url);
-
-      // Second url
-      let pos = productOfferURL.length - 1;
-      url = productOfferURL[pos].getAttribute("href");
-      console.log(url);
-      idx1 = url.indexOf("listing/");
-      idx2 = url.indexOf("/", idx1 + 10);
-      url = url.slice(0, idx2 + 1);
-
-      url = url.replace("/gp/offer-listing/", "/dp/");
-
-      // Bucle SET
-      let i = 0;
-      while (i < productOfferURL.length) {
-        productOfferURL[i].setAttribute("href", url);
-        if (i == pos) productOfferURL[i].setAttribute("href", url);
-        i++;
+      if (idx1 == -1 || idx2 - idx1 < 2) {
+        idx1 = url.indexOf("dp%2F");
+        idx2 = url.indexOf("%2", idx1 + 5);
+        if (idx1 == -1 || idx2 - idx1 < 2) return;
+        url = "/dp/" + url.slice(idx1 + 5, idx2);
+      } else {
+        url = url.slice(idx1, idx2);
       }
+
+      if (url === undefined) return;
+
+      let anchors = container.querySelectorAll("a");
+      anchors.forEach(function (anchor) {
+        anchor.setAttribute("href", url);
+      });
+
+      return;
     },
 
     markAsNotDeliverable: () => {

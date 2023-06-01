@@ -3,8 +3,8 @@
 
 The extension removes TAXES from amazon sites (EU). Furthermore, you can introduce your desired/current tax of your current country to see the final price you will pay.
 
-**The extension is supported in Chrome and Firefox with manifest version 2 (MV2).**
-**Manifest version 3 is only supported in Chrome**
+**The extension is supported in Chrome and Firefox with manifest version 2 (MV2). NO LONGER SUPPORTED NEITHER UPDATED SINCE 0.4.0.5** 
+**Manifest version 3 is supported in Chrome and Firefox**
 
 ### Copyright
 

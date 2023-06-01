@@ -74,16 +74,26 @@ function taxfree(activeFreeTax, url) {
 
   console.log("TaxFree - Loading Price");
 
-  let delivery = !document.querySelector(`span.a-color-error`);
-  let oldDelivery = !document.querySelector(`#ddmDeliveryMessage .a-color-error,#deliveryMessageMirId .a-color-error`);
+  let delivery = !document.querySelector(`
+      #centerCol #ddmDeliveryMessage .a-color-error,
+      #centerCol #deliveryMessageMirId .a-color-error,
+      #rightCol #qualifiedBuybox #ddmDeliveryMessage .a-color-error,
+      #rightCol #qualifiedBuybox #mir-layout-DELIVERY_BLOCK-slot-DELIVERY_MESSAGE .a-color-error,
+      #rightCol #qualifiedBuybox #mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE .a-color-error,
+      #rightCol .a-accordion-active #ddmDeliveryMessage .a-color-error,
+      #rightCol .a-accordion-active #mir-layout-DELIVERY_BLOCK-slot-DELIVERY_MESSAGE .a-color-error,
+      #rightCol .a-accordion-active #mir-layout-DELIVERY_BLOCK-slot-PRIMARY_DELIVERY_MESSAGE_LARGE .a-color-error
+  `);
 
-  if (delivery === true || oldDelivery === true) {
-    setDataFromURL();
-
-    if (product.location === "undefined") return;
-    calculatePrice();
-    insertPrice();
+  if (delivery === false) {
+    console.log("No se envía");
+    return;
   }
+
+  setDataFromURL();
+  if (product.location === "undefined") return;
+  calculatePrice();
+  insertPrice();
 }
 
 function setDataFromURL() {
