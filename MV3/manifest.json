@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "TAXFree",
-  "version": "0.4.0.6",
+  "version": "0.5.0",
   "author": "MDaniel",
-  "description": "Discount the TAX/VAT applied to all products + Quick identification of Amazon products with shipping restrictions.",
+  "description": "Remove VAT/TAX from EU Amazon products and calculate local pricing instantly. Clean URLs with ShortLinks.",
   "homepage_url": "https://github.com/MDaniel592/TaxFree",
   "default_locale": "en",
   "icons": {
@@ -43,10 +43,7 @@
         "https://www.amazon.de/*",
         "https://www.amazon.it/*"
       ],
-      "css": [
-        "css/loader.css",
-        "css/products.css"
-      ],
+      "css": [],
       "js": [
         "content_scripts/taxfree.js",
         "content_scripts/search.js"

@@ -34,13 +34,5 @@
     "configs_switch_statistics_title": {
         "message": "Habilita o deshabilita el filtrado completo de los enlaces",
         "description": "This string is used as title for the ShortLinks switch button on the popup page."
-    },
-    "configs_switch_tag": {
-        "message": "SendHerePlz",
-        "description": "This string is used as name for the SendHerePlz switch button on the popup page."
-    },
-    "configs_switch_tag_title": {
-        "message": "Habilita or deshabilita la comprobación de la dispponibilidad de envío de Amazon",
-        "description": "This string is used as title for the statistics switch button on the popup page."
     }
 }

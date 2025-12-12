@@ -3,8 +3,6 @@
  * Handles extension initialization and page monitoring
  */
 
-import "../core_js/storage.js";
-
 // ============================================================================
 // INITIALIZATION
 // ============================================================================
@@ -17,7 +15,6 @@ chrome.runtime.onInstalled.addListener(() => {
   try {
     const initialData = {
       TaxFreeStatus: true,
-      sendHerePlzStatus: true,
       ShortLinkStatus: true,
       TaxFreePercent: 0,
     };

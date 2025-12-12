@@ -79,6 +79,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     let url = getDocumentBaseURL();
+
+    // Clean product links on page
+    cleanProductURL();
+
     if (url && taxFreeStatus) {
       // Add delay to ensure page elements are fully loaded
       setTimeout(() => {
@@ -262,6 +266,80 @@ function getDocumentBaseURL() {
   } catch (error) {
     console.error("[TaxFree ERROR] getDocumentBaseURL:", error);
     return null;
+  }
+}
+
+/**
+ * Clean all product links on the current page
+ * Finds all links that point to Amazon product pages and cleans their URLs
+ */
+function cleanProductURL() {
+  try {
+    // Find all links on the page
+    const allLinks = document.querySelectorAll('a[href*="/dp/"], a[href*="/gp/product/"]');
+    let cleanedCount = 0;
+
+    allLinks.forEach((link) => {
+      try {
+        const originalHref = link.getAttribute("href");
+        if (!originalHref) return;
+
+        // Skip if it's already a clean URL (just /dp/ASIN or /name/dp/ASIN)
+        if (/^\/[^/]+\/dp\/[A-Z0-9]{10}$/.test(originalHref) || /^\/dp\/[A-Z0-9]{10}$/.test(originalHref)) {
+          return;
+        }
+
+        let cleanHref = null;
+
+        // Parse the URL to extract the path
+        let linkPath;
+        try {
+          // Handle both absolute and relative URLs
+          if (originalHref.startsWith("http")) {
+            const urlObj = new URL(originalHref);
+            linkPath = urlObj.pathname;
+          } else {
+            linkPath = originalHref.split("?")[0]; // Remove query params
+          }
+        } catch (e) {
+          return; // Skip invalid URLs
+        }
+
+        // Extract ASIN and clean the path
+        const dpMatch = linkPath.match(/\/dp\/([A-Z0-9]{10})/);
+        if (dpMatch) {
+          const asin = dpMatch[1];
+          // Keep product name if it exists: /Product-Name/dp/ASIN
+          const productNameMatch = linkPath.match(/(\/[^/]+)?\/dp\/[A-Z0-9]{10}/);
+          if (productNameMatch && productNameMatch[0]) {
+            cleanHref = productNameMatch[0];
+          } else {
+            cleanHref = "/dp/" + asin;
+          }
+        }
+
+        // Handle /gp/product/ASIN format
+        const gpMatch = linkPath.match(/\/gp\/product\/([A-Z0-9]{10})/);
+        if (gpMatch && !cleanHref) {
+          const asin = gpMatch[1];
+          cleanHref = "/dp/" + asin;
+        }
+
+        // Apply the cleaned URL if we found one
+        if (cleanHref && cleanHref !== originalHref) {
+          link.setAttribute("href", cleanHref);
+          cleanedCount++;
+        }
+      } catch (error) {
+        console.warn("[TaxFree] Error cleaning individual link:", error);
+      }
+    });
+
+    if (cleanedCount > 0) {
+      console.log("[TaxFree] Cleaned " + cleanedCount + " product links on page");
+    }
+  } catch (error) {
+    console.error("[TaxFree ERROR] cleanProductURL:", error);
   }
 }
 
@@ -664,12 +742,23 @@ function calculatePrice() {
 
     // Format prices with currency symbol based on location
     // Some countries put symbol before price, others after
-    if (product.location === "CO.UK" || product.location === "DE" || product.location === "DE_EN") {
-      product.newPriceTAX = CountryTaxes[product.location].coin + newPriceTAX;
-      product.PriceFreeTax = CountryTaxes[product.location].coin + PriceFreeTax;
+    // Determine the coin symbol based on the detected location
+    let coinSymbol;
+    if (product.location === "DE") {
+      // Check if we're using English or German tax rate
+      coinSymbol = product.TaxPercent === CountryTaxes["DE_EN"].tax
+        ? CountryTaxes["DE_EN"].coin
+        : CountryTaxes["DE"].coin;
     } else {
-      product.newPriceTAX = newPriceTAX + CountryTaxes[product.location].coin;
-      product.PriceFreeTax = PriceFreeTax + CountryTaxes[product.location].coin;
+      coinSymbol = CountryTaxes[product.location].coin;
+    }
+
+    if (product.location === "CO.UK" || product.location === "DE") {
+      product.newPriceTAX = coinSymbol + newPriceTAX;
+      product.PriceFreeTax = coinSymbol + PriceFreeTax;
+    } else {
+      product.newPriceTAX = newPriceTAX + coinSymbol;
+      product.PriceFreeTax = PriceFreeTax + coinSymbol;
     }
 
     console.log("[TaxFree] Prices calculated:", {
@@ -688,9 +777,16 @@ function calculatePrice() {
   }
 }
 
-function createOneElement_A(price, name) {
+/**
+ * Create a price display element (variant A - used in modern layout)
+ * @param {string} price - Formatted price string
+ * @param {string} name - Label text
+ * @param {string} idSuffix - ID suffix for the container (e.g., "main", "custom")
+ * @returns {HTMLElement} Container element with price display
+ */
+function createOneElement_A(price, name, idSuffix) {
   let container = document.createElement("div");
-  container.setAttribute("id", Math.random());
+  container.setAttribute("id", "taxfree_" + idSuffix + "_" + Date.now());
   let textSpan = document.createElement("span");
   textSpan.setAttribute("data-a-size", "xl");
   let valueSpan = document.createElement("span");
@@ -765,16 +861,13 @@ function insertPrice() {
     if (modernPriceContainer) {
       // Insert custom tax price if applicable
       if (product.newPriceTAX && selectedTAX !== 1) {
-        const customContainer = createOneElement_A(product.newPriceTAX, product.TextNewTax);
-        // Use a specific ID pattern so clearOldPrices can find it
-        customContainer.setAttribute("id", "taxfree_custom_" + Date.now());
+        const customContainer = createOneElement_A(product.newPriceTAX, product.TextNewTax, "custom");
         modernPriceContainer.appendChild(customContainer);
         console.log("[TaxFree] Custom price inserted");
       }
 
       // Insert tax-free price
-      const taxFreeContainer = createOneElement_A(product.PriceFreeTax, product.TextFreeTax);
-      taxFreeContainer.setAttribute("id", "taxfree_main_" + Date.now());
+      const taxFreeContainer = createOneElement_A(product.PriceFreeTax, product.TextFreeTax, "main");
       modernPriceContainer.appendChild(taxFreeContainer);
       console.log("[TaxFree] Prices inserted (modern layout)");
       return;

@@ -34,13 +34,5 @@
     "configs_switch_statistics_title": {
         "message": "Activate or deactivate the completed filtration of the links",
         "description": "This string is used as title for the ShortLinks switch button on the popup page."
-    },
-    "configs_switch_tag": {
-        "message": "SendHerePlz",
-        "description": "This string is used as name for the SendHerePlz switch button on the popup page."
-    },
-    "configs_switch_tag_title": {
-        "message": "Activate or deactivate the check of the Amazon shipping availability",
-        "description": "This string is used as title for the SendHerePlz switch button on the popup page."
     }
 }

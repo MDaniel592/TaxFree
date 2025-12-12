@@ -2,44 +2,74 @@
 
 All notable changes to TaxFree are documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+---
+
+## [0.5.0] - 2025-12-12
+
+### 🚨 Breaking Changes
+- **Removed SendHerePlz feature**: Shipping availability detection has been completely removed to simplify the extension and improve performance
+
+### 🐛 Bug Fixes
+- **Fixed random ID bug** in taxfree.js that prevented proper cleanup of old price elements
+- **Fixed currency format error** for German Amazon (DE) when handling euro symbol
+- **Fixed ShortLinks bug** that was replacing ALL links in product containers, breaking vendor and offer links
+
+### 🔒 Security Improvements
+- **Removed all `eval()` usage** from popup.js (3 instances eliminated)
+- **Simplified storage architecture** by removing unnecessary message passing layer
+- Direct use of `chrome.storage.local` instead of custom storage wrapper
+
+### ⚡ Performance & Code Quality
+- **Reduced codebase by ~30%**:
+  - search.js: 462 → 240 lines (-48%)
+  - popup.js: 407 → 320 lines (-21%)
+- **Removed deprecated files**:
+  - storage.js (unnecessary abstraction layer)
+  - loader.css (only used by SendHerePlz)
+  - products.css (only used by SendHerePlz)
+- **Simplified architecture**: Direct storage access, no background script messaging
+- **Better code organization**: Clearer function names and documentation
+
+### 🧹 Cleanup
+- Removed unused CSS from manifest.json
+- Removed SendHerePlz references from:
+  - popup.html (UI element)
+  - popup.js (settings handling)
+  - background.js (initialization)
+  - Localization files (en/messages.json, es/messages.json)
+
+### 📝 Documentation
+- Updated README.md with current features
+- Simplified documentation structure
+- Removed outdated markdown files
 
 ---
 
-## [0.4.0.5] - 2025-12-02
+## [0.4.0.6] - 2024-XX-XX
+
+### Fixed
+- Duplicate "Precio con nuevo IVA" display on product pages
+- Improved delivery detection reliability
+- Better removal of referral links in search results
+- Price parsing for values higher than 999 with multiple dots
+
+---
+
+## [0.4.0.5] - 2024-12-02
 
 ### Added
 - Comprehensive error handling throughout codebase
 - Enhanced logging with consistent formatting
 - JSDoc documentation for all functions
-- CONTRIBUTING.md guide for developers
-- CHANGELOG.md to track version history
 - Defensive checks in product price parsing
 - Input validation for tax percentage (0-100%)
-- Proper null/undefined checks before DOM operations
 - Timeout handling for fetch operations in search results
 
 ### Changed
-- **Complete code refactoring for maintainability:**
-  - Reorganized popup.js with clear section divisions
-  - Refactored taxfree.js with separate functions for parsing, calculation, insertion
-  - Improved search.js with better error handling and factory patterns
-  - Enhanced storage.js with detailed documentation
-  - Simplified background.js with clearer purpose
-
-- **Improved README.md:**
-  - Added feature overview with use cases
-  - Added installation instructions (manual and web store)
-  - Added supported regions table
-  - Added architecture diagrams
-  - Added troubleshooting section
-  - Added privacy & permissions details
-  - Added browser compatibility chart
-
-- **Better currency handling:**
-  - Separate handling for pound (£) vs euro (€) placement
-  - Improved German language detection (DE_EN variant)
-  - Better handling of different decimal separators
+- **Complete code refactoring** for better maintainability
+- **Improved README.md** with feature overview and troubleshooting
+- **Better currency handling** for different symbols and decimal separators
+- Separate handling for German language detection (DE_EN variant)
 
 ### Fixed
 - Duplicate "DE" country key in tax rates (now DE and DE_EN)
@@ -48,106 +78,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Incomplete validation of tax percentage input
 - Race condition in storage initialization
 - Improper cleanup of loading indicators
-- Missing null checks in ProductItem factory
-- Inconsistent error messages across components
-
-### Improved
-- Code organization and readability
-- Error messages clarity and actionability
-- Function documentation completeness
-- Browser compatibility with better error fallbacks
-- Performance of storage operations with proper debouncing
-- Resilience of content scripts against DOM changes
 
 ### Deprecated
-- Manifest Version 2 (MV2) - no longer maintained
+- **Manifest Version 2 (MV2)** - no longer maintained
   - Last supported version: 0.4.0.4
   - Users should migrate to MV3
 
 ---
 
-## [0.4.0.4] - Previous Release
+## [0.4.0.4] - Previous Releases
 
 - Last version supporting Manifest Version 2 (MV2)
 - Core functionality for VAT removal and price display
-- SendHerePlz shipping detection feature
+- SendHerePlz shipping detection feature (removed in v0.5.0)
 - ShortLinks URL shortening feature
 - Multi-language support (English, Spanish)
 
 ---
 
-## Structure Notes
-
-- **MV3 folder:** Current version using Manifest Version 3 (recommended)
-- **MV2 folder:** Legacy version using Manifest Version 2 (deprecated)
-
-### Why MV2 is Deprecated
-
-- Chrome 88+ requires MV3
-- Firefox 109+ requires MV3
-- MV2 had security and privacy limitations
-- MV3 provides better extension governance
-
----
-
 ## Versioning
 
-TaxFree uses semantic versioning: `MAJOR.MINOR.PATCH.BUILD`
+TaxFree uses semantic versioning: `MAJOR.MINOR.PATCH`
 
-- **MAJOR**: Breaking changes or complete rewrites
-- **MINOR**: New features
-- **PATCH**: Bug fixes
-- **BUILD**: Build/release number
-
-Example: `0.4.0.5`
-- Major: 0 (pre-release)
-- Minor: 4 (4 features)
-- Patch: 0 (no fixes yet)
-- Build: 5 (5th build)
-
----
-
-## Release Process
-
-1. Development on feature branches
-2. Pull request review
-3. Merge to main
-4. Version bump in manifest.json
-5. Testing across browsers
-6. Release to web stores
-7. Update changelog
-
----
-
-## Future Plans
-
-### Planned Features
-- [ ] Support for more Amazon sites
-- [ ] Custom price comparison tool
-- [ ] Price history tracking
-- [ ] Browser sync across devices
-- [ ] Tax calculator tool
-- [ ] User preferences import/export
-
-### Under Discussion
-- [ ] Mobile app version
-- [ ] API for third-party integrations
-- [ ] Advanced filtering options
-- [ ] Wishlist integration
-
----
-
-## Security Updates
-
-Security patches are released as `PATCH` versions and applied immediately.
-
-Report security issues privately to the maintainer.
+- **MAJOR**: Breaking changes or major feature removal
+- **MINOR**: New features or significant improvements
+- **PATCH**: Bug fixes and minor improvements
 
 ---
 
 ## Support
 
 For issues, questions, or suggestions:
-- Open an issue on [GitHub](https://github.com/MDaniel592/TaxFree/issues)
-- Check the [README](./README.md)
-- Read [CONTRIBUTING.md](./CONTRIBUTING.md)
+- 🐛 [Report Issues](https://github.com/MDaniel592/TaxFree/issues)
+- 💬 [Request Features](https://github.com/MDaniel592/TaxFree/issues/new)
+- 📖 [Read README](./README.md)

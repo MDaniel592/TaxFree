@@ -10,7 +10,6 @@
 let TaxFreePercent = 0;
 let TaxFreeStatus = true;
 let ShortLinkStatus = true;
-let sendHerePlzStatus = true;
 
 // ============================================================================
 // INITIALIZATION
@@ -34,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
 function initializeEventListeners() {
   const controls = [
     { id: "TaxFreeButton", handler: handleSettingChange },
-    { id: "sendHerePlzButton", handler: handleSettingChange },
     { id: "ShortLinkButton", handler: handleSettingChange },
     { id: "TaxFreePercent", handler: handleSettingChange },
   ];
@@ -61,18 +59,16 @@ function initializePopup() {
   try {
     // Load all settings from storage synchronously
     chrome.storage.local.get(
-      ["TaxFreeStatus", "sendHerePlzStatus", "ShortLinkStatus", "TaxFreePercent"],
+      ["TaxFreeStatus", "ShortLinkStatus", "TaxFreePercent"],
       (items) => {
         try {
           // Update global variables with stored values
           TaxFreeStatus = items.TaxFreeStatus !== undefined ? items.TaxFreeStatus : true;
-          sendHerePlzStatus = items.sendHerePlzStatus !== undefined ? items.sendHerePlzStatus : true;
           ShortLinkStatus = items.ShortLinkStatus !== undefined ? items.ShortLinkStatus : true;
           TaxFreePercent = items.TaxFreePercent !== undefined ? items.TaxFreePercent : 0;
 
           // Set UI elements based on loaded values
           setSwitchButtonDirect("TaxFreeButton", TaxFreeStatus);
-          setSwitchButtonDirect("sendHerePlzButton", sendHerePlzStatus);
           setSwitchButtonDirect("ShortLinkButton", ShortLinkStatus);
           setInputValueDirect("TaxFreePercent", TaxFreePercent);
           setText();
@@ -88,37 +84,8 @@ function initializePopup() {
 }
 
 // ============================================================================
-// DATA LOADING
+// DATA LOADING (DEPRECATED - Direct storage access is used instead)
 // ============================================================================
-
-/**
- * Load data from storage asynchronously
- * @param {string} storageName - Key in storage
- * @param {string} varName - Variable name (defaults to storageName)
- * @returns {Promise} Resolves when data is loaded
- */
-async function loadData(storageName, varName = storageName) {
-  return new Promise((resolve, reject) => {
-    try {
-      chrome.runtime
-        .sendMessage({
-          function: "getData",
-          params: [storageName],
-        })
-        .then((data) => {
-          if (data && data.response !== undefined) {
-            eval(`${varName} = data.response`);
-            resolve(data);
-          } else {
-            reject(new Error(`No data received for ${storageName}`));
-          }
-        })
-        .catch(reject);
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
 
 // ============================================================================
 // UI UPDATE FUNCTIONS
@@ -156,39 +123,6 @@ function setSwitchButtonDirect(elementId, checked) {
   }
 }
 
-/**
- * Set the value of an input field from a variable
- * @param {string} elementId - HTML element ID
- * @param {string} varName - Variable name to read from
- */
-function setInputValue(elementId, varName) {
-  try {
-    const element = document.getElementById(elementId);
-    if (element) {
-      const value = eval(varName);
-      element.value = value !== undefined ? value : "";
-    }
-  } catch (error) {
-    console.error(`[TaxFree Popup ERROR] setInputValue for ${elementId}:`, error);
-  }
-}
-
-/**
- * Set the checked state of a switch button from a variable
- * @param {string} elementId - HTML element ID
- * @param {string} varName - Variable name to read from
- */
-function setSwitchButton(elementId, varName) {
-  try {
-    const element = document.getElementById(elementId);
-    if (element) {
-      const value = eval(varName);
-      element.checked = value === true;
-    }
-  } catch (error) {
-    console.error(`[TaxFree Popup ERROR] setSwitchButton for ${elementId}:`, error);
-  }
-}
 
 /**
  * Set localized text from i18n strings
@@ -197,7 +131,6 @@ function setText() {
   try {
     injectText("configs_head", "popup_html_configs_head");
     injectText("configs_switch_filter", "popup_html_configs_switch_filter");
-    injectText("configs_switch_tag", "configs_switch_tag");
     injectText("configs_switch_statistics", "configs_switch_statistics");
     injectText("configs_percent", "popup_html_configs_percent");
   } catch (error) {
@@ -245,21 +178,12 @@ function injectText(elementId, messageKey, tooltipKey = messageKey + "_title") {
 function handleSwitchChange(element, storageKey) {
   try {
     const newValue = element.checked;
-    
+
     // Update global variable immediately
     updateGlobalVariable(storageKey, newValue);
-    
-    chrome.runtime
-      .sendMessage({
-        function: "setData",
-        params: [storageKey, newValue],
-      })
-      .then(() => {
-        return chrome.runtime.sendMessage({
-          function: "saveOnExit",
-          params: [],
-        });
-      })
+
+    // Save directly to chrome.storage.local
+    chrome.storage.local.set({ [storageKey]: newValue })
       .then(() => {
         console.log(`[TaxFree Popup] Setting changed - ${storageKey}: ${newValue}`);
         reloadPage();
@@ -278,7 +202,7 @@ function handleSwitchChange(element, storageKey) {
 function handleInputChange(element, storageKey) {
   try {
     const newValue = element.value;
-    
+
     // Validate tax percentage input
     if (storageKey === "TaxFreePercent") {
       const numValue = parseFloat(newValue);
@@ -292,17 +216,8 @@ function handleInputChange(element, storageKey) {
     // Update global variable immediately
     updateGlobalVariable(storageKey, newValue);
 
-    chrome.runtime
-      .sendMessage({
-        function: "setData",
-        params: [storageKey, newValue],
-      })
-      .then(() => {
-        return chrome.runtime.sendMessage({
-          function: "saveOnExit",
-          params: [],
-        });
-      })
+    // Save directly to chrome.storage.local
+    chrome.storage.local.set({ [storageKey]: newValue })
       .then(() => {
         console.log(`[TaxFree Popup] Setting changed - ${storageKey}: ${newValue}`);
         reloadPage();
@@ -326,7 +241,6 @@ function handleSettingChange(event) {
     // Map element IDs to storage keys
     const mappings = {
       TaxFreeButton: { storageKey: "TaxFreeStatus", type: "switch" },
-      sendHerePlzButton: { storageKey: "sendHerePlzStatus", type: "switch" },
       ShortLinkButton: { storageKey: "ShortLinkStatus", type: "switch" },
       TaxFreePercent: { storageKey: "TaxFreePercent", type: "input" },
     };
@@ -361,9 +275,6 @@ function updateGlobalVariable(storageKey, value) {
     switch (storageKey) {
       case "TaxFreeStatus":
         TaxFreeStatus = value;
-        break;
-      case "sendHerePlzStatus":
-        sendHerePlzStatus = value;
         break;
       case "ShortLinkStatus":
         ShortLinkStatus = value;

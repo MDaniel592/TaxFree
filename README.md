@@ -2,25 +2,19 @@
 
 Remove VAT/TAX from EU Amazon products and calculate local pricing instantly.
 
-**Current Version: 0.4.0.5** | [Changelog](./CHANGELOG.md) | [Contributing](./CONTRIBUTING.md)
+**Current Version: 0.5.0** | [Chrome Web Store](#) | [Firefox Add-ons](#)
 
 ---
 
 ## 🎯 Features
 
-### Price Tax Removal
+### 💰 Price Tax Removal
 Automatically removes VAT from product prices on European Amazon sites and displays the pre-tax price in a clear, easy-to-read format.
 
-### Custom Tax Calculation
+### 🧮 Custom Tax Calculation
 Input your country's tax rate (0-100%) to see what you'd pay with local VAT applied. Perfect for comparing prices across EU markets.
 
-### Shipping Availability Detection (SendHerePlz)
-Instantly identifies products that cannot be shipped to your location on search results:
-- Red highlighting for non-deliverable items
-- Warning icon indicators
-- Alternative seller information when available
-
-### URL Shortening (ShortLinks)
+### 🔗 URL Shortening (ShortLinks)
 Converts long Amazon URLs to short `/dp/ASIN` format for easy sharing on social media and messaging apps.
 
 ---
@@ -29,187 +23,183 @@ Converts long Amazon URLs to short `/dp/ASIN` format for easy sharing on social 
 
 | Country | Domain | VAT Rate |
 |---------|--------|----------|
-| Spain | amazon.es | 21% |
-| France | amazon.fr | 20% |
-| Germany | amazon.de | 19%-21% |
-| Italy | amazon.it | 22% |
-| United Kingdom | amazon.co.uk | 20% |
+| 🇪🇸 Spain | amazon.es | 21% |
+| 🇫🇷 France | amazon.fr | 20% |
+| 🇩🇪 Germany | amazon.de | 19% |
+| 🇮🇹 Italy | amazon.it | 22% |
+| 🇬🇧 United Kingdom | amazon.co.uk | 20% |
 
 ---
 
 ## 🚀 Installation
 
-### Chrome/Edge (Recommended)
-1. Visit [Chrome Web Store](https://chrome.google.com/webstore) and search for "TaxFree"
+### Chrome/Edge
+1. Download from [Chrome Web Store](#)
 2. Click **Add to Chrome** and confirm permissions
 3. The extension icon appears in your toolbar
 
 ### Firefox
-1. Visit [Firefox Add-ons](https://addons.mozilla.org) and search for "TaxFree"
+1. Download from [Firefox Add-ons](#)
 2. Click **Add to Firefox** and confirm permissions
 3. The extension icon appears in your toolbar
 
-### Manual Installation (Development)
-1. Clone this repository: `git clone https://github.com/MDaniel592/TaxFree.git`
-2. Navigate to the `MV3` folder (current version)
-3. **Chrome**: Go to `chrome://extensions` → Enable Developer Mode → Load unpacked → Select `MV3` folder
-4. **Firefox**: Go to `about:debugging` → This Firefox → Load Temporary Add-on → Select `manifest.json`
-
----
-
-## 💡 How It Works
-
-### Product Pages
-When you visit a product page on a supported Amazon domain:
-1. Extension extracts the current price with VAT
-2. Calculates the VAT-free price using the country's tax rate
-3. Displays the price directly below the original price
-4. If you set a custom tax rate, also shows the price with your local VAT
-
-### Search Results
-When browsing search results with SendHerePlz enabled:
-1. Extension asynchronously checks each product's delivery status
-2. Non-deliverable items are highlighted in red with a warning icon
-3. Alternative seller information is displayed when available
-4. Long URLs are shortened to `/dp/ASIN` format for easier sharing
-
----
-
-## ⚙️ Settings
-
-Access settings by clicking the TaxFree icon in your toolbar:
-
-| Setting | Description | Default |
-|---------|-------------|---------|
-| **TaxFree** | Enable/disable VAT removal on product pages | Enabled |
-| **TAX Percent** | Set your country's tax rate (0-100%) | 0% |
-| **SendHerePlz** | Highlight non-deliverable products on search | Enabled |
-| **ShortLinks** | Shorten URLs on search results | Enabled |
-
-All settings persist across browser sessions and take effect immediately.
-
----
-
-## 🛠️ Architecture
-
-### Core Components
-
-**popup.js/popup.html**
-- User interface for settings management
-- Toggles for features and tax percentage input
-- Localization support (English, Spanish)
-
-**taxfree.js** (Content Script)
-- Extracts product prices from Amazon's DOM
-- Performs tax calculations
-- Injects custom price displays
-
-**search.js** (Content Script)
-- Monitors search result pages
-- Detects shipping availability
-- Implements URL shortening
-
-**background.js**
-- Service Worker initialization
-- Handles URL monitoring and data routing
-- Persists user preferences
-
-**storage.js**
-- Manages all persistent storage operations
-- Handles inter-script communication
-- Defers save operations for performance
-
-### Data Flow
-```
-popup.js → storage.js → chrome.storage.local
-                           ↓
-background.js ← watches URL changes ← content scripts
-                                        ↓
-            taxfree.js (product pages)
-            search.js (search results)
+### Manual Installation (Developers)
+```bash
+git clone https://github.com/MDaniel592/TaxFree.git
+cd TaxFree/MV3
 ```
 
+**Chrome/Edge**:
+- Go to `chrome://extensions`
+- Enable "Developer mode"
+- Click "Load unpacked"
+- Select the `MV3` folder
+
+**Firefox**:
+- Go to `about:debugging`
+- Click "This Firefox"
+- Click "Load Temporary Add-on"
+- Select `manifest.json` from `MV3` folder
+
 ---
 
-## 📊 Browser Compatibility
+## 💡 How to Use
 
-| Browser | Version | Status |
-|---------|---------|--------|
-| Chrome | 88+ | ✅ Supported (MV3) |
-| Edge | 88+ | ✅ Supported (MV3) |
-| Firefox | 109+ | ✅ Supported (MV3) |
-| Safari | 15+ | ⚠️ Not tested |
+### On Product Pages
+1. Visit any product on a supported Amazon domain
+2. Look below the original price to see:
+   - **Price Tax Free**: Product price without VAT
+   - **Price with new VAT**: (If you set a custom tax %) Price with your local VAT
 
-**Note:** MV2 (Manifest Version 2) is deprecated and no longer maintained as of v0.4.0.5.
+### On Search Results
+- Product URLs are automatically shortened to `/dp/ASIN` format
+- Makes links cleaner and easier to share
+
+### Settings
+Click the TaxFree icon in your toolbar to configure:
+- **TaxFree Toggle**: Enable/disable VAT removal
+- **Tax Percent**: Set your country's VAT rate (0-100%)
+- **ShortLinks**: Enable/disable URL shortening
+
+---
+
+## 🔒 Privacy & Security
+
+This extension:
+- ✅ Works **100% locally**—no data sent to external servers
+- ✅ Only accesses Amazon product and search pages
+- ✅ Stores settings **only** in your browser's local storage
+- ✅ **Does not** collect, track, or share any user data
+- ✅ Open source—audit the code yourself!
+
+**Required Permissions:**
+- `storage`: Save your preferences locally
+- `tabs`: Monitor Amazon pages to activate features
+
+---
+
+## 🛠️ Technical Details
+
+### Architecture
+- **Manifest V3** (latest Chrome extension standard)
+- **Content Scripts**: Extract and modify Amazon page content
+- **Service Worker**: Lightweight background processing
+- **Direct Storage**: Uses `chrome.storage.local` for settings
+
+### Files Overview
+```
+MV3/
+├── background/background.js      # Service worker
+├── content_scripts/
+│   ├── taxfree.js               # Price calculation & display
+│   └── search.js                # URL shortening
+├── core_js/
+│   ├── popup.js                 # Settings UI logic
+│   └── write_version.js         # Version display
+├── html/popup.html              # Settings interface
+└── manifest.json                # Extension configuration
+```
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Prices not showing?
-- Verify the extension is enabled in your toolbar
+**Prices not showing?**
 - Ensure you're on a supported Amazon domain
-- Check that the product is available for delivery
-- Try reloading the page (Ctrl+R)
+- Check that TaxFree is enabled in settings
+- Reload the page (Ctrl+R / Cmd+R)
 
-### SendHerePlz not working?
-- Make sure the feature is enabled in settings
-- Allow a few seconds for the extension to check delivery status
-- Some products may not show delivery information
+**Settings not saving?**
+- Close and reopen the popup
+- Check browser console for errors (F12)
 
-### URL not shortening?
-- Verify ShortLinks is enabled in settings
-- Check that you're viewing search results (not product pages)
-- Some URLs may not contain valid ASIN codes
+**Extension not working after update?**
+- Reload the extension: `chrome://extensions` → Click reload button
+- Clear browser cache and reload Amazon
 
 ---
 
-## 🔒 Privacy & Permissions
+## 📝 Changelog
 
-This extension:
-- ✅ Works entirely locally—no data is sent to external servers
-- ✅ Only accesses Amazon product and search pages
-- ✅ Stores settings only in your browser's local storage
-- ✅ Does not collect user data or browsing history
+### v0.5.0 (2025-12-12)
+**Major Refactoring**
+- 🗑️ Removed: SendHerePlz (shipping detection) feature
+- 🐛 Fixed: Random ID bug causing price cleanup issues
+- 🐛 Fixed: Currency format error for German Amazon
+- 🐛 Fixed: ShortLinks breaking non-product URLs
+- 🔒 Security: Removed all `eval()` usage
+- ⚡ Optimized: Simplified storage system (~30% code reduction)
+- 🧹 Cleaned: Removed unused files and dependencies
 
-**Required Permissions:**
-- `storage`: Save your preferences locally
-- `tabs`: Monitor page navigation for feature activation
+### v0.4.0.6
+- Fixed duplicate "Precio con nuevo IVA" display
+- Improved delivery detection
+- Better referral link removal
+- Price parsing fixes for values >999
+
+[View Full Changelog](./CHANGELOG.md)
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for:
-- Code style guidelines
-- How to report bugs
-- How to propose new features
-- Development setup instructions
+Contributions are welcome! To contribute:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes and test thoroughly
+4. Commit: `git commit -m "Add amazing feature"`
+5. Push: `git push origin feature/amazing-feature`
+6. Open a Pull Request
+
+**Bug Reports**: [Open an issue](https://github.com/MDaniel592/TaxFree/issues) with:
+- Browser and extension version
+- Steps to reproduce
+- Expected vs actual behavior
+- Screenshots (if applicable)
 
 ---
 
-## 📜 License & Attribution
+## 📜 License
 
-This project is open source. We gratefully acknowledge:
+This project is open source.
 
-**Third-Party Dependencies:**
-- [ClearURLs](https://github.com/ClearURLs/Addon) | GNU LGPLv3
-- [Bootstrap 5](https://github.com/twbs/bootstrap) | MIT
-- [SendHerePlz](https://github.com/sdelquin/sendhereplz) | GNU GPLv3
-- [jQuery 3.6.1](https://github.com/jquery/jquery) | MIT
-- [Popper.js](https://popper.js.org) | MIT
-
-**Icons & Design:**
+### Third-Party Credits
+- [Bootstrap 5](https://github.com/twbs/bootstrap) - MIT License
+- [jQuery 3.6.1](https://github.com/jquery/jquery) - MIT License
+- [Popper.js](https://popper.js.org) - MIT License
 - Tax icon by [Smashicons - Flaticon](https://www.flaticon.com/free-icons/tax)
 
 ---
 
 ## 📞 Support
 
-- 🐛 [Report a Bug](https://github.com/MDaniel592/TaxFree/issues)
-- 💬 [Request a Feature](https://github.com/MDaniel592/TaxFree/issues)
-- 📧 Contact: [See GitHub Profile](https://github.com/MDaniel592)
+- 🐛 [Report Issues](https://github.com/MDaniel592/TaxFree/issues)
+- 💬 [Request Features](https://github.com/MDaniel592/TaxFree/issues/new)
+- 📧 [GitHub Profile](https://github.com/MDaniel592)
 
 ---
 
-**Made with ❤️ by MDaniel | [Follow on GitHub](https://github.com/MDaniel592)**
+**Made with ❤️ for savvy EU shoppers**
+
+⭐ If you find this useful, please star the repo on GitHub!
